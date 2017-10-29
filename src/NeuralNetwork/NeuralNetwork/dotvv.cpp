@@ -24,7 +24,7 @@ void DotVV::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    unsigned int n = result->getSize();
+    unsigned int n = a->getSize();
     for(unsigned int i = 0;i < n; ++i)
         value += (*(valueA++)) * (*(valueB++));
     
@@ -40,7 +40,7 @@ void DotVV::backpropagate() {
     scalar* gradientA = a->getGradientAddr();
     scalar* gradientB = b->getGradientAddr();
     
-    unsigned int n = result->getSize();
+    unsigned int n = a->getSize();
     for(unsigned int i = 0;i < n; ++i) {
         *(gradientA++) += gradientResult * (*(valueB++));
         *(gradientB++) += gradientResult * (*(valueA++));

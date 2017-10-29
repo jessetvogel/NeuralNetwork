@@ -6,7 +6,7 @@
 
 class Variable {
     
-    const unsigned int n;
+    const unsigned int size;
     
     bool computedValue;
     bool computedGradient;
@@ -25,11 +25,12 @@ protected:
     scalar* gradient;
     
     Variable(unsigned int, Function*);
-    ~Variable();
 
 public:
     
-    inline unsigned int getSize() { return n; }
+    ~Variable();
+    
+    inline unsigned int getSize() { return size; }
     inline Function* getFunction() { return function; }
     inline scalar* getValueAddr() { return value; }
     inline scalar* getGradientAddr() { return gradient; }
@@ -38,6 +39,9 @@ public:
     
     void computeValue();
     void computeGradient();
+    
+    void resetValue();
+    void resetGradient();
     
 };
 

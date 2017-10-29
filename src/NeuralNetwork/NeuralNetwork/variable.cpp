@@ -1,8 +1,8 @@
 #include "variable.hpp"
 
-Variable::Variable(unsigned int n, Function* function) : n(n), function(function) {
-    value = new scalar[n];
-    gradient = new scalar[n];
+Variable::Variable(unsigned int size, Function* function) : size(size), function(function) {
+    value = new scalar[size];
+    gradient = new scalar[size];
 }
 
 Variable::~Variable() {
@@ -22,8 +22,9 @@ void Variable::computeValue() {
     for(auto it = inputs.begin();it != inputs.end(); ++it)
         (*it)->computeValue();
     
-    // Then evaluate the function
-    function->evaluate();
+    // Then evaluate the function (if it exists)
+    if(function != nullptr)
+        function->evaluate();
 }
 
 void Variable::computeGradient() {
@@ -34,11 +35,33 @@ void Variable::computeGradient() {
     computedGradient = true;
     
     // Initialize gradient with zeroes
-    memset(gradient, 0, sizeof(scalar) * n);
+    memset(gradient, 0, sizeof(scalar) * size);
     
     // The gradient is the sum of the contributions to the gradient through all dependents
     for(auto it = dependents.begin();it != dependents.end(); ++it) {
         (*it)->computeGradient();
         (*it)->getFunction()->backpropagate();
     }
+}
+
+void Variable::resetValue() {
+    if(!computedValue) return;
+    
+    // Mark variable as unevaluated
+    computedValue = false;
+    
+    // Mark all inputs as unevaluated
+    for(auto it = inputs.begin();it != inputs.end(); ++it)
+        (*it)->resetValue();
+}
+
+void Variable::resetGradient() {
+    if(!computedGradient) return;
+    
+    // Mark variable as unevaluated gradient
+    computedGradient = false;
+    
+    // Mark all dependents as unevaluated gradient
+    for(auto it = dependents.begin();it != dependents.end(); ++it)
+        (*it)->resetGradient();
 }

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		311061B01FA625640099FF55 /* neural.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061AE1FA625640099FF55 /* neural.cpp */; };
+		311061B31FA627720099FF55 /* printer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061B11FA627720099FF55 /* printer.cpp */; };
+		311061B61FA63A490099FF55 /* sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061B41FA63A490099FF55 /* sample.cpp */; };
+		311061B91FA667CD0099FF55 /* errorquadratic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061B71FA667CD0099FF55 /* errorquadratic.cpp */; };
+		311061BC1FA674AA0099FF55 /* trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061BA1FA674AA0099FF55 /* trainer.cpp */; };
 		3153F81F1F9F56C100D1CE46 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3153F81E1F9F56C100D1CE46 /* main.cpp */; };
 		886E149C1FA3CAF3000B463B /* add.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886E149A1FA3CAF3000B463B /* add.cpp */; };
 		886E14A61FA3D14E000B463B /* subtract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886E14A41FA3D14E000B463B /* subtract.cpp */; };
@@ -35,6 +40,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		311061AE1FA625640099FF55 /* neural.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = neural.cpp; sourceTree = "<group>"; };
+		311061AF1FA625640099FF55 /* neural.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = neural.hpp; sourceTree = "<group>"; };
+		311061B11FA627720099FF55 /* printer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = printer.cpp; sourceTree = "<group>"; };
+		311061B21FA627720099FF55 /* printer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = printer.hpp; sourceTree = "<group>"; };
+		311061B41FA63A490099FF55 /* sample.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sample.cpp; sourceTree = "<group>"; };
+		311061B51FA63A490099FF55 /* sample.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sample.hpp; sourceTree = "<group>"; };
+		311061B71FA667CD0099FF55 /* errorquadratic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = errorquadratic.cpp; sourceTree = "<group>"; };
+		311061B81FA667CD0099FF55 /* errorquadratic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = errorquadratic.hpp; sourceTree = "<group>"; };
+		311061BA1FA674AA0099FF55 /* trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = trainer.cpp; sourceTree = "<group>"; };
+		311061BB1FA674AA0099FF55 /* trainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = trainer.hpp; sourceTree = "<group>"; };
 		3153F81B1F9F56C100D1CE46 /* NeuralNetwork */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NeuralNetwork; sourceTree = BUILT_PRODUCTS_DIR; };
 		3153F81E1F9F56C100D1CE46 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		886E149A1FA3CAF3000B463B /* add.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = add.cpp; sourceTree = "<group>"; };
@@ -75,6 +90,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		311061AD1FA624C70099FF55 /* neural */ = {
+			isa = PBXGroup;
+			children = (
+				311061AE1FA625640099FF55 /* neural.cpp */,
+				311061AF1FA625640099FF55 /* neural.hpp */,
+				311061B41FA63A490099FF55 /* sample.cpp */,
+				311061B51FA63A490099FF55 /* sample.hpp */,
+				311061BA1FA674AA0099FF55 /* trainer.cpp */,
+				311061BB1FA674AA0099FF55 /* trainer.hpp */,
+			);
+			name = neural;
+			sourceTree = "<group>";
+		};
 		3153F8121F9F56C100D1CE46 = {
 			isa = PBXGroup;
 			children = (
@@ -95,8 +123,9 @@
 			isa = PBXGroup;
 			children = (
 				3153F81E1F9F56C100D1CE46 /* main.cpp */,
-				88711B601FA3944200C8B5C0 /* log */,
+				88711B601FA3944200C8B5C0 /* util */,
 				88711B4B1FA36CE100C8B5C0 /* math */,
+				311061AD1FA624C70099FF55 /* neural */,
 			);
 			path = NeuralNetwork;
 			sourceTree = "<group>";
@@ -133,6 +162,8 @@
 		886FEF511FA6081800162F9F /* error */ = {
 			isa = PBXGroup;
 			children = (
+				311061B71FA667CD0099FF55 /* errorquadratic.cpp */,
+				311061B81FA667CD0099FF55 /* errorquadratic.hpp */,
 			);
 			name = error;
 			sourceTree = "<group>";
@@ -176,13 +207,15 @@
 			name = functions;
 			sourceTree = "<group>";
 		};
-		88711B601FA3944200C8B5C0 /* log */ = {
+		88711B601FA3944200C8B5C0 /* util */ = {
 			isa = PBXGroup;
 			children = (
 				88711B611FA3945000C8B5C0 /* log.cpp */,
 				88711B621FA3945000C8B5C0 /* log.hpp */,
+				311061B11FA627720099FF55 /* printer.cpp */,
+				311061B21FA627720099FF55 /* printer.hpp */,
 			);
-			name = log;
+			name = util;
 			sourceTree = "<group>";
 		};
 		88711B6A1FA39FD600C8B5C0 /* product */ = {
@@ -253,8 +286,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				88711B691FA39FCC00C8B5C0 /* sigmoid.cpp in Sources */,
+				311061B61FA63A490099FF55 /* sample.cpp in Sources */,
 				88711B631FA3945000C8B5C0 /* log.cpp in Sources */,
+				311061B01FA625640099FF55 /* neural.cpp in Sources */,
 				886FEF471FA603DB00162F9F /* softmax.cpp in Sources */,
+				311061B31FA627720099FF55 /* printer.cpp in Sources */,
+				311061B91FA667CD0099FF55 /* errorquadratic.cpp in Sources */,
+				311061BC1FA674AA0099FF55 /* trainer.cpp in Sources */,
 				886E149C1FA3CAF3000B463B /* add.cpp in Sources */,
 				88711B4E1FA36D0100C8B5C0 /* vector.cpp in Sources */,
 				888880D31FA4DF88001B04F7 /* variable.cpp in Sources */,

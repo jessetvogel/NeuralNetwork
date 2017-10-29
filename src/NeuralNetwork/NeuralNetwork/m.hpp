@@ -7,10 +7,15 @@
 #include "dotmv.hpp"
 #include "sigmoid.hpp"
 #include "softmax.hpp"
+#include "errorquadratic.hpp"
 
 class M {
     
 public:
+    
+    inline static Scalar* scalar() { return new Scalar(nullptr); }
+    inline static Vector* vector(unsigned int n) { return new Vector(n, nullptr); }
+    inline static Matrix* matrix(unsigned int i, unsigned int j) { return new Matrix(i, j, nullptr); }
     
     inline static Scalar* add(Scalar* a, Scalar* b) { return Add::create(a, b); }
     inline static Vector* add(Vector* a, Vector* b) { return Add::create(a, b); }
@@ -31,6 +36,8 @@ public:
     inline static Vector* softmax(Vector* a) { return Softmax::create(a); }
 //    inline static Matrix* softmax(Matrix* a) { return Softmax::create(a); }
 
+    inline static Scalar* errorQuadratic(Variable* a, Variable* b) { return ErrorQuadratic::create(a, b); };
+    
 };
 
 #endif
