@@ -5,15 +5,22 @@
 
 typedef double scalar;
 
+class Variable;
+
 class Function {
+    
+protected:
+    
+    Variable* result;
     
 public:
     
-    inline virtual ~Function() {}
+    virtual ~Function() {};
 
-    inline virtual void evaluate() const {}
-    inline virtual void backpropagate() const {}
-
+    virtual void setResult(Variable*) = 0;
+    virtual void evaluate() = 0;
+    virtual void backpropagate() = 0;
+    
 };
 
 #endif

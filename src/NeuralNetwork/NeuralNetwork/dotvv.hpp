@@ -6,18 +6,16 @@
 
 class DotVV : Function {
     
-    Scalar* result;
+    Vector* const a;
+    Vector* const b;
     
-    Vector* a;
-    Vector* b;
-    
-    DotVV(Vector*, Vector*);
-    inline ~DotVV() {};
+    DotVV(Vector* a, Vector* b) : a(a), b(b) {};
     
 public:
     
     static Scalar* create(Vector*, Vector*);
     
+    void setResult(Variable*);
     void evaluate();
     void backpropagate();
     

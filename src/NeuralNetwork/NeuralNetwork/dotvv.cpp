@@ -1,7 +1,5 @@
 #include "dotvv.hpp"
 
-DotVV::DotVV(Vector* a, Vector* b) : a(a), b(b) {}
-
 Scalar* DotVV::create(Vector* a, Vector* b) {
     // Make sure sizes of the vectors are equal
     if(a->getSize() != b->getSize()) {
@@ -11,7 +9,13 @@ Scalar* DotVV::create(Vector* a, Vector* b) {
     
     // Create function object and scalar, and return
     DotVV* dotVV = new DotVV(a, b);
-    return (dotVV->result = new Scalar(dotVV));
+    return new Scalar(dotVV);
+}
+
+void DotVV::setResult(Variable* variable) {
+    result = variable;
+    result->addChild(a);
+    result->addChild(b);
 }
 
 void DotVV::evaluate() {
@@ -20,7 +24,7 @@ void DotVV::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    unsigned int n = a->getSize();
+    unsigned int n = result->getSize();
     for(unsigned int i = 0;i < n; ++i)
         value += (*(valueA++)) * (*(valueB++));
     
@@ -29,19 +33,16 @@ void DotVV::evaluate() {
 }
 
 void DotVV::backpropagate() {
-    // Determine gradient of result
-    result->computeGradient();
-    
-    // Compute new gradients
+    // Compute contribution to the gradients
     scalar gradientResult = *(result->getGradientAddr());
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     scalar* gradientA = a->getGradientAddr();
     scalar* gradientB = b->getGradientAddr();
     
-    unsigned int n = a->getSize();
+    unsigned int n = result->getSize();
     for(unsigned int i = 0;i < n; ++i) {
-        *(gradientA++) = gradientResult * (*(valueB++));
-        *(gradientB++) = gradientResult * (*(valueA++));
+        *(gradientA++) += gradientResult * (*(valueB++));
+        *(gradientB++) += gradientResult * (*(valueA++));
     }
 }

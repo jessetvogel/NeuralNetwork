@@ -6,18 +6,16 @@
 
 class DotMV : Function {
     
-    Vector* result;
+    Matrix* const a;
+    Vector* const b;
     
-    Matrix* a;
-    Vector* b;
-    
-    DotMV(Matrix*, Vector*);
-    inline ~DotMV() {};
+    DotMV(Matrix* a, Vector* b) : a(a), b(b) {};
     
 public:
     
     static Vector* create(Matrix*, Vector*);
     
+    void setResult(Variable*);
     void evaluate();
     void backpropagate();
     

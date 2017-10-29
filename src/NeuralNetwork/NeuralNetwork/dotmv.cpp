@@ -1,7 +1,5 @@
 #include "dotmv.hpp"
 
-DotMV::DotMV(Matrix* a, Vector* b) : a(a), b(b) {}
-
 Vector* DotMV::create(Matrix* a, Vector* b) {
     // Make sure the number of columns matches the size of the vector
     if(a->getColumnSize() != b->getSize()) {
@@ -11,7 +9,13 @@ Vector* DotMV::create(Matrix* a, Vector* b) {
     
     // Create function object and vector, and return
     DotMV* dotMV = new DotMV(a, b);
-    return (dotMV->result = new Vector(a->getRowSize(), dotMV));
+    return new Vector(a->getRowSize(), dotMV);
+}
+
+void DotMV::setResult(Variable* variable) {
+    result = variable;
+    result->addChild(a);
+    result->addChild(b);
 }
 
 void DotMV::evaluate() {
@@ -31,5 +35,27 @@ void DotMV::evaluate() {
         
         // Store result
         *(valueResult++) = value;
+    }
+}
+
+void DotMV::backpropagate() {
+    // Compute contribution to gradients
+    scalar* gradientResult = result->getGradientAddr();
+    scalar* valueA = a->getValueAddr();
+    scalar* gradientA = a->getGradientAddr();
+    scalar* valueB;
+    scalar* gradientB;
+    
+    // Feels good, computing an outer product and a matrix-vector product in just 10 lines of code
+    unsigned int rows = a->getRowSize();
+    unsigned int columns = a->getColumnSize();
+    for(unsigned int i = 0;i < rows; ++i) {
+        valueB = b->getValueAddr();
+        gradientB = b->getGradientAddr();
+        for(unsigned int j = 0;j < columns; ++j) {
+            *(gradientA++) += (*gradientResult) * (*(valueB++));
+            *(gradientB++) += (*gradientResult) * (*(valueA++));
+        }
+       ++ gradientResult;
     }
 }
