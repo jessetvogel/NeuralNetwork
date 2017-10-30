@@ -2,22 +2,26 @@
 #define sample_hpp
 
 #include "math.hpp"
+#include <cstring>
 
 class Sample {
 
-    const unsigned int inputSize;
-    const unsigned int outputSize;
+    const dimension inputSize;
+    const dimension outputSize;
     
 public:
     
-    Sample(unsigned int, unsigned int);
+    Sample(dimension, dimension);
     ~Sample();
     
-    inline unsigned int getInputSize() { return inputSize; }
-    inline unsigned int getOutputSize() { return outputSize; }
+    inline dimension getInputSize() { return inputSize; }
+    inline dimension getOutputSize() { return outputSize; }
     
     scalar* input;
     scalar* output;
+    
+    bool save(std::string);
+    bool load(std::string);
 
 };
 

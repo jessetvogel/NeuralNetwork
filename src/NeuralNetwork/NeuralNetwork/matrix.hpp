@@ -14,10 +14,10 @@ class Matrix : public Variable {
     
 public:
     
-    Matrix(unsigned int, unsigned int, Function*);
+    Matrix(dimension, dimension, Function*);
     
-    inline const unsigned int getRowSize() const { return rowSize; }
-    inline const unsigned int getColumnSize() const { return columnSize; }
+    inline const dimension getRowSize() const { return rowSize; }
+    inline const dimension getColumnSize() const { return columnSize; }
     
 };
 

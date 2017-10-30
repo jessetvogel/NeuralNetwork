@@ -7,7 +7,7 @@ class Vector : public Variable {
     
 public:
     
-    Vector(unsigned int, Function*);
+    Vector(dimension, Function*);
     
 };
 

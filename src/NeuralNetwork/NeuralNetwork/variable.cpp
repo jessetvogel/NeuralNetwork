@@ -1,6 +1,9 @@
 #include "variable.hpp"
+#include <chrono>
 
-Variable::Variable(unsigned int size, Function* function) : size(size), function(function) {
+std::default_random_engine Variable::randomGenerator((unsigned) (std::chrono::system_clock::now().time_since_epoch().count())); // Use time-based seed
+
+Variable::Variable(dimension size, Function* function) : size(size), function(function) {
     value = new scalar[size];
     gradient = new scalar[size];
 }
@@ -9,6 +12,14 @@ Variable::~Variable() {
     delete function;
     delete[] value;
     delete[] gradient;
+}
+
+void Variable::initializeValues(scalar stddev) {
+    std::normal_distribution<scalar> distribution(0.0, stddev);
+    
+    scalar* ptr = value;
+    for(dimension i = 0;i < size; ++i)
+        *(ptr++) = distribution(randomGenerator);
 }
 
 void Variable::computeValue() {
@@ -45,23 +56,11 @@ void Variable::computeGradient() {
 }
 
 void Variable::resetValue() {
-    if(!computedValue) return;
-    
     // Mark variable as unevaluated
     computedValue = false;
-    
-    // Mark all inputs as unevaluated
-    for(auto it = inputs.begin();it != inputs.end(); ++it)
-        (*it)->resetValue();
 }
 
 void Variable::resetGradient() {
-    if(!computedGradient) return;
-    
     // Mark variable as unevaluated gradient
     computedGradient = false;
-    
-    // Mark all dependents as unevaluated gradient
-    for(auto it = dependents.begin();it != dependents.end(); ++it)
-        (*it)->resetGradient();
 }

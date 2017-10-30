@@ -24,13 +24,13 @@ void DotMV::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB;
     
-    const unsigned int rows = a->getRowSize();
-    const unsigned int columns = a->getColumnSize();
-    for(unsigned int i = 0;i < rows; ++i) {
+    const dimension rows = a->getRowSize();
+    const dimension columns = a->getColumnSize();
+    for(dimension i = 0;i < rows; ++i) {
         // Compute inner product of i'th row of the matrix with vector
         scalar value = 0.0;
         valueB = b->getValueAddr();
-        for(unsigned int j = 0;j < columns; ++j)
+        for(dimension j = 0;j < columns; ++j)
             value += (*(valueA++)) * (*(valueB++));
         
         // Store result
@@ -47,12 +47,12 @@ void DotMV::backpropagate() {
     scalar* gradientB;
     
     // Feels good, computing an outer product and a matrix-vector product in just 10 lines of code
-    unsigned int rows = a->getRowSize();
-    unsigned int columns = a->getColumnSize();
-    for(unsigned int i = 0;i < rows; ++i) {
+    dimension rows = a->getRowSize();
+    dimension columns = a->getColumnSize();
+    for(dimension i = 0;i < rows; ++i) {
         valueB = b->getValueAddr();
         gradientB = b->getGradientAddr();
-        for(unsigned int j = 0;j < columns; ++j) {
+        for(dimension j = 0;j < columns; ++j) {
             *(gradientA++) += (*gradientResult) * (*(valueB++));
             *(gradientB++) += (*gradientResult) * (*(valueA++));
         }

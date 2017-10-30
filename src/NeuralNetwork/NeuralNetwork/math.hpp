@@ -3,7 +3,10 @@
 
 #include "log.hpp" // TODO: remove this
 
-typedef double scalar;
+#include <cstdint>
+
+typedef double scalar; // TODO: guaranteed to be 8 bytes?
+typedef uint32_t dimension;
 
 class Variable;
 
