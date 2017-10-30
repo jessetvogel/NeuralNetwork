@@ -2,7 +2,7 @@
 #include <cmath>
 
 Scalar* Sigmoid::create(Scalar* a) {
-    // Create function object and vector, and return
+    // Create function object and scalar, and return
     Sigmoid* sigmoid = new Sigmoid(a);
     return new Scalar(sigmoid);
 }
@@ -14,7 +14,7 @@ Vector* Sigmoid::create(Vector* a) {
 }
 
 Matrix* Sigmoid::create(Matrix* a) {
-    // Create function object and vector, and return
+    // Create function object and matrix, and return
     Sigmoid* sigmoid = new Sigmoid(a);
     return new Matrix(a->getRowSize(), a->getColumnSize(), sigmoid);
 }
@@ -41,8 +41,10 @@ void Sigmoid::backpropagate() {
     scalar* gradientA = a->getGradientAddr();
     
     dimension n = result->getSize();
-    for(dimension i = 0;i < n; ++i)
-        *(gradientA++) += (*(gradientResult++)) * (*(valueResult));
+    for(dimension i = 0;i < n; ++i) {
+        *(gradientA++) += (*(gradientResult++)) * (*valueResult) * (1.0 - (*valueResult));
+        ++ valueResult;
+    }
 }
 
 scalar Sigmoid::sig(scalar x) {

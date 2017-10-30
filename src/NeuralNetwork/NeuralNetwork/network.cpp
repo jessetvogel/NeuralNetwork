@@ -1,4 +1,5 @@
 #include "network.hpp"
+#include "printer.hpp"
 
 Network::Network(dimension outputSize) {
     // Create a builder
@@ -102,7 +103,13 @@ bool Network::train(Sample& sample) {
     // Set gradient of error to 1.0
     error->computeGradient();
     *(error->getGradientAddr()) = 1.0;
-
+    
+    // Make sure there are parameters
+    if(parameters.size() == 0) {
+        Log::print("Note that there are no parameters to optimize");
+        return true;
+    }
+    
     // Compute the gradient for all parameters, and determine the norm of the gradient
     scalar gradientNorm = 0.0;
     for(auto it = parameters.begin();it != parameters.end(); ++it) {
@@ -123,16 +130,15 @@ bool Network::train(Sample& sample) {
         return true;
     }
     
-    // Update the parameters
+    // Update the parameters (gradient descent)
     scalar alphaOverGradientNorm = learningRate * getError() / gradientNorm;
     for(auto it = parameters.begin();it != parameters.end(); ++it) {
         Variable* variable = *it;
         scalar* value = variable->getValueAddr();
         scalar* gradient = variable->getGradientAddr();
         dimension n = variable->getSize();
-        for(dimension i = 0;i < n; ++i) {
-            *(value++) += (*(gradient++)) * alphaOverGradientNorm;
-        }
+        for(dimension i = 0;i < n; ++i)
+            *(value++) -= (*(gradient++)) * alphaOverGradientNorm;
     }
     
     return true;

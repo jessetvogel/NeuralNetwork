@@ -25,7 +25,7 @@ void ErrorQuadratic::evaluate() {
     scalar quadraticSum = 0.0;
     dimension n = exact->getSize();
     for(dimension i = 0;i < n; ++i) {
-        quadraticSum += ((*valueExact) - (*valueEstimate)) * ((*valueExact) - (*valueEstimate));
+        quadraticSum += ((*valueEstimate) - (*valueExact)) * ((*valueEstimate) - (*valueExact));
         ++valueExact;
         ++valueEstimate;
     }
@@ -43,5 +43,5 @@ void ErrorQuadratic::backpropagate() {
     
     dimension n = estimate->getSize();
     for(dimension i = 0;i < n; ++i)
-        *(gradientEstimate++) += gradientResult * ((*valueExact++) - (*valueEstimate++));
+        *(gradientEstimate++) += gradientResult * ((*valueEstimate++) - (*valueExact++));
 }
