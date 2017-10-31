@@ -12,6 +12,7 @@
 		311061B61FA63A490099FF55 /* sample.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061B41FA63A490099FF55 /* sample.cpp */; };
 		311061B91FA667CD0099FF55 /* errorquadratic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061B71FA667CD0099FF55 /* errorquadratic.cpp */; };
 		311061BC1FA674AA0099FF55 /* trainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 311061BA1FA674AA0099FF55 /* trainer.cpp */; };
+		315013E01FA8A5A800BEEF88 /* gradientchecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 315013DE1FA8A5A800BEEF88 /* gradientchecker.cpp */; };
 		3153F81F1F9F56C100D1CE46 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3153F81E1F9F56C100D1CE46 /* main.cpp */; };
 		31D0CCEC1FA74D4600FBD851 /* builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D0CCEA1FA74D4600FBD851 /* builder.cpp */; };
 		31D0CCEF1FA7548100FBD851 /* dotmm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D0CCED1FA7548100FBD851 /* dotmm.cpp */; };
@@ -51,6 +52,8 @@
 		311061B81FA667CD0099FF55 /* errorquadratic.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = errorquadratic.hpp; sourceTree = "<group>"; };
 		311061BA1FA674AA0099FF55 /* trainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = trainer.cpp; sourceTree = "<group>"; };
 		311061BB1FA674AA0099FF55 /* trainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = trainer.hpp; sourceTree = "<group>"; };
+		315013DE1FA8A5A800BEEF88 /* gradientchecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gradientchecker.cpp; sourceTree = "<group>"; };
+		315013DF1FA8A5A800BEEF88 /* gradientchecker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = gradientchecker.hpp; sourceTree = "<group>"; };
 		3153F81B1F9F56C100D1CE46 /* NeuralNetwork */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = NeuralNetwork; sourceTree = BUILT_PRODUCTS_DIR; };
 		3153F81E1F9F56C100D1CE46 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		31D0CCEA1FA74D4600FBD851 /* builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = builder.cpp; sourceTree = "<group>"; };
@@ -217,6 +220,8 @@
 				88711B621FA3945000C8B5C0 /* log.hpp */,
 				311061B11FA627720099FF55 /* printer.cpp */,
 				311061B21FA627720099FF55 /* printer.hpp */,
+				315013DE1FA8A5A800BEEF88 /* gradientchecker.cpp */,
+				315013DF1FA8A5A800BEEF88 /* gradientchecker.hpp */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 				31D0CCEC1FA74D4600FBD851 /* builder.cpp in Sources */,
 				886FEF471FA603DB00162F9F /* softmax.cpp in Sources */,
 				311061B31FA627720099FF55 /* printer.cpp in Sources */,
+				315013E01FA8A5A800BEEF88 /* gradientchecker.cpp in Sources */,
 				31D0CCEF1FA7548100FBD851 /* dotmm.cpp in Sources */,
 				311061B91FA667CD0099FF55 /* errorquadratic.cpp in Sources */,
 				311061BC1FA674AA0099FF55 /* trainer.cpp in Sources */,

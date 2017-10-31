@@ -16,7 +16,6 @@ class Network {
     Variable* output;
     
     Variable* trainOutput;
-    Scalar* error;
     
     scalar learningRate;
     
@@ -33,7 +32,7 @@ public:
     void setInput(Variable*);
     void setOutput(Variable*);
     inline void addParameter(Variable* parameter) { parameters.push_back(parameter); };
-    
+
     inline void setLearningRate(scalar alpha) { learningRate = alpha; };
 
     bool feed(scalar*);
@@ -42,7 +41,13 @@ public:
     inline scalar getError() { if(error == nullptr) return -1.0; error->computeValue(); return *(error->getValueAddr()); }
     
     inline void addVariable(Variable* variable) { variables.push_back(variable); }; // TODO: preferably this is invisible for everyone except the Builder class
+  
     
+    // Maybe remove this at some point (TODO)
+    inline std::vector<Variable*>* getParameters() { return &parameters; };
+    inline std::vector<Variable*>* getVariables() { return &variables; };
+    
+    Scalar* error; // TODO: move to private
 };
 
 #include "builder.hpp"

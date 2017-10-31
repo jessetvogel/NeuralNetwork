@@ -55,7 +55,7 @@ void Add::backpropagate() {
     
     dimension n = result->getSize();
     for(dimension i = 0;i < n; ++i) {
-        *(gradientA++) += *gradientResult;
+        *(gradientA++) += *(gradientResult);
         *(gradientB++) += *(gradientResult++);
     }
 }

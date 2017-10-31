@@ -126,7 +126,7 @@ bool Network::train(Sample& sample) {
     // In practice unnecessary, but just to be sure
     if(gradientNorm <= 0.0) {
         // We are exactly at a local minimum, no need to update the parameters
-        Log::print("Hooray, we reached a local minimum exactly!"); // TODO: remove this
+//        Log::print("Hooray, we reached a local minimum exactly!"); // TODO: remove this
         return true;
     }
     

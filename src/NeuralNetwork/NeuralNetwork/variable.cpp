@@ -51,7 +51,7 @@ void Variable::computeGradient() {
     // The gradient is the sum of the contributions to the gradient through all dependents
     for(auto it = dependents.begin();it != dependents.end(); ++it) {
         (*it)->computeGradient();
-        (*it)->getFunction()->backpropagate();
+        (*it)->function->backpropagate();
     }
 }
 

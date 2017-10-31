@@ -34,7 +34,6 @@ public:
     ~Variable();
     
     inline dimension getSize() { return size; }
-    inline Function* getFunction() { return function; }
     inline scalar* getValueAddr() { return value; }
     inline scalar* getGradientAddr() { return gradient; }
     
