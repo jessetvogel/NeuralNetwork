@@ -1,14 +1,12 @@
 #include "network.hpp"
 #include "printer.hpp"
 
-Network::Network(dimension outputSize) {
+Network::Network() {
     // Create a builder
     builder = new Builder(this);
     
-    // Create training output vector
-    trainOutput = builder->vector(outputSize);
-    
-    // Set error variable to null
+    // Set training output vector and error variable to null
+    trainOutput = nullptr;
     error = nullptr;
     
     // Set default learning rate
@@ -30,25 +28,17 @@ void Network::setInput(Variable* input) {
 }
 
 void Network::setOutput(Variable* output) {
-    // Make sure the variable has the correct size
-    if(output->getSize() != trainOutput->getSize()) {
-        Log::print("Variable does not have the correct size");
-        return;
+    // Create a new trainOutput if necessary
+    if(trainOutput == nullptr || output->getSize() != trainOutput->getSize()) {
+        if(trainOutput != nullptr) deleteVariable(trainOutput);
+        trainOutput = builder->vector(output->getSize());
     }
     
     // Set the output variable
     this->output = output;
 
-    // Delete error and remove it from the list of variables (if it exists)
-    if(error != nullptr) {
-        for(auto it = variables.begin();it != variables.end(); ++it) {
-            if((*it) == error) {
-                variables.erase(it);
-                break;
-            }
-        }
-        delete error;
-    }
+    // Delete error if it exists
+    if(error != nullptr) deleteVariable(error);
     
     // Create new error function
     error = builder->errorQuadratic(trainOutput, output);
@@ -142,4 +132,14 @@ bool Network::train(Sample& sample) {
     }
     
     return true;
+}
+
+void Network::deleteVariable(Variable* variable) {
+    for(auto it = variables.begin();it != variables.end(); ++it) {
+        if((*it) == variable) {
+            variables.erase(it);
+            break;
+        }
+    }
+    delete variable;
 }

@@ -96,7 +96,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		311061AD1FA624C70099FF55 /* neural */ = {
+		311061AD1FA624C70099FF55 /* network */ = {
 			isa = PBXGroup;
 			children = (
 				311061AE1FA625640099FF55 /* network.cpp */,
@@ -108,7 +108,7 @@
 				31D0CCEA1FA74D4600FBD851 /* builder.cpp */,
 				31D0CCEB1FA74D4600FBD851 /* builder.hpp */,
 			);
-			name = neural;
+			name = network;
 			sourceTree = "<group>";
 		};
 		3153F8121F9F56C100D1CE46 = {
@@ -133,7 +133,7 @@
 				3153F81E1F9F56C100D1CE46 /* main.cpp */,
 				88711B601FA3944200C8B5C0 /* util */,
 				88711B4B1FA36CE100C8B5C0 /* math */,
-				311061AD1FA624C70099FF55 /* neural */,
+				311061AD1FA624C70099FF55 /* network */,
 			);
 			path = NeuralNetwork;
 			sourceTree = "<group>";

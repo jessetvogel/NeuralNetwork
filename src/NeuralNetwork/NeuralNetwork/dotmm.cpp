@@ -19,9 +19,53 @@ void DotMM::setResult(Variable* variable) {
 }
 
 void DotMM::evaluate() {
-    // TODO
+    // Compute matrix-matrix product
+    scalar* valueResult = result->getValueAddr();
+    scalar* valueA = a->getValueAddr();
+    scalar* valueB = b->getValueAddr();
+    
+    dimension rows = a->getRowSize();
+    dimension columns = b->getColumnSize();
+    dimension K = a->getColumnSize();
+    for(dimension i = 0;i < rows; ++i) {
+        for(dimension j = 0;j < columns; ++j) {
+            scalar value = 0.0;
+            scalar* vB = valueB + j;
+            scalar* vA = valueA + i * K;
+            for(dimension k = 0;k < K; ++k) {
+                value += (*(vA++)) * (*vB);
+                vB += columns;
+            }
+            *(valueResult++) = value;
+        }
+    }
 }
 
 void DotMM::backpropagate() {
-    // TODO
+    // Compute contribution to the gradients
+    scalar* gradientResult = result->getGradientAddr();
+    scalar* gradientA = a->getGradientAddr();
+    scalar* gradientB = b->getGradientAddr();
+    scalar* valueA = a->getValueAddr();
+    scalar* valueB = b->getValueAddr();
+    
+    dimension I = a->getRowSize();
+    dimension J = b->getColumnSize();
+    dimension K = a->getColumnSize();
+    
+    for(dimension i = 0;i < I; ++i) {
+        for(dimension j = 0;j < J; ++j) {
+            scalar* vA = valueA + i * K;
+            scalar* vB = valueB + j;
+            scalar* gA = gradientA + i * K;
+            scalar* gB = gradientB + j;
+            for(dimension k = 0;k < K; ++k) {
+                *(gA++) += (*gradientResult) * (*vB);
+                *gB += (*gradientResult) * (*(vA++));
+                vB += J;
+                gB += J;
+            }
+            ++gradientResult;
+        }
+    }
 }

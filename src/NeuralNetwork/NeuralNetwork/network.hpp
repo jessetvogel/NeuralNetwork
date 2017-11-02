@@ -22,9 +22,11 @@ class Network {
     std::vector<Variable*> variables;
     std::vector<Variable*> parameters;
     
+    void deleteVariable(Variable*);
+    
 public:
     
-    Network(dimension);
+    Network();
     ~Network();
     
     inline Builder* getBuilder() { return builder; }
@@ -37,6 +39,8 @@ public:
 
     bool feed(scalar*);
     bool feed(Sample&);
+    inline bool feed() { return feed(nullptr); }
+    
     bool train(Sample&);
     inline scalar getError() { if(error == nullptr) return -1.0; error->computeValue(); return *(error->getValueAddr()); }
     
