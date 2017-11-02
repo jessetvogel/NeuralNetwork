@@ -6,6 +6,9 @@ std::default_random_engine Variable::randomGenerator((unsigned) (std::chrono::sy
 Variable::Variable(dimension size, Function* function) : size(size), function(function) {
     value = new scalar[size];
     gradient = new scalar[size];
+    
+    if(function != nullptr)
+        function->setResult(this);
 }
 
 Variable::~Variable() {

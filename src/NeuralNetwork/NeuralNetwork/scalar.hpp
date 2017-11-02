@@ -7,7 +7,7 @@ class Scalar : public Variable {
     
 public:
     
-    Scalar(Function*);
+    Scalar(Function* function) : Variable(1, function) {}
     
 };
 

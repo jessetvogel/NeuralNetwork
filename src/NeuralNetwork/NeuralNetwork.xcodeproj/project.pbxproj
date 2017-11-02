@@ -16,13 +16,11 @@
 		3153F81F1F9F56C100D1CE46 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3153F81E1F9F56C100D1CE46 /* main.cpp */; };
 		31D0CCEC1FA74D4600FBD851 /* builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D0CCEA1FA74D4600FBD851 /* builder.cpp */; };
 		31D0CCEF1FA7548100FBD851 /* dotmm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D0CCED1FA7548100FBD851 /* dotmm.cpp */; };
+		31F3AE541FAB4B4A00EE480C /* relu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31F3AE521FAB4B4A00EE480C /* relu.cpp */; };
 		886E149C1FA3CAF3000B463B /* add.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886E149A1FA3CAF3000B463B /* add.cpp */; };
 		886E14A61FA3D14E000B463B /* subtract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886E14A41FA3D14E000B463B /* subtract.cpp */; };
 		886FEF471FA603DB00162F9F /* softmax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 886FEF451FA603DB00162F9F /* softmax.cpp */; };
-		88711B4E1FA36D0100C8B5C0 /* vector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88711B4C1FA36D0100C8B5C0 /* vector.cpp */; };
-		88711B511FA36D1000C8B5C0 /* matrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88711B4F1FA36D1000C8B5C0 /* matrix.cpp */; };
 		88711B5C1FA3914800C8B5C0 /* dotvv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88711B5A1FA3914800C8B5C0 /* dotvv.cpp */; };
-		88711B5F1FA3920200C8B5C0 /* scalar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88711B5D1FA3920200C8B5C0 /* scalar.cpp */; };
 		88711B631FA3945000C8B5C0 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88711B611FA3945000C8B5C0 /* log.cpp */; };
 		88711B661FA39B4100C8B5C0 /* dotmv.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88711B641FA39B4100C8B5C0 /* dotmv.cpp */; };
 		88711B691FA39FCC00C8B5C0 /* sigmoid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 88711B671FA39FCC00C8B5C0 /* sigmoid.cpp */; };
@@ -60,20 +58,19 @@
 		31D0CCEB1FA74D4600FBD851 /* builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = builder.hpp; sourceTree = "<group>"; };
 		31D0CCED1FA7548100FBD851 /* dotmm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dotmm.cpp; sourceTree = "<group>"; };
 		31D0CCEE1FA7548100FBD851 /* dotmm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dotmm.hpp; sourceTree = "<group>"; };
+		31F3AE521FAB4B4A00EE480C /* relu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = relu.cpp; sourceTree = "<group>"; };
+		31F3AE531FAB4B4A00EE480C /* relu.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = relu.hpp; sourceTree = "<group>"; };
 		886E149A1FA3CAF3000B463B /* add.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = add.cpp; sourceTree = "<group>"; };
 		886E149B1FA3CAF3000B463B /* add.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = add.hpp; sourceTree = "<group>"; };
 		886E14A41FA3D14E000B463B /* subtract.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = subtract.cpp; sourceTree = "<group>"; };
 		886E14A51FA3D14E000B463B /* subtract.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = subtract.hpp; sourceTree = "<group>"; };
 		886FEF451FA603DB00162F9F /* softmax.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = softmax.cpp; sourceTree = "<group>"; };
 		886FEF461FA603DB00162F9F /* softmax.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = softmax.hpp; sourceTree = "<group>"; };
-		88711B4C1FA36D0100C8B5C0 /* vector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vector.cpp; sourceTree = "<group>"; };
 		88711B4D1FA36D0100C8B5C0 /* vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vector.hpp; sourceTree = "<group>"; };
-		88711B4F1FA36D1000C8B5C0 /* matrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = matrix.cpp; sourceTree = "<group>"; };
 		88711B501FA36D1000C8B5C0 /* matrix.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = matrix.hpp; sourceTree = "<group>"; };
 		88711B521FA38BC600C8B5C0 /* math.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = math.hpp; sourceTree = "<group>"; };
 		88711B5A1FA3914800C8B5C0 /* dotvv.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dotvv.cpp; sourceTree = "<group>"; };
 		88711B5B1FA3914800C8B5C0 /* dotvv.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = dotvv.hpp; sourceTree = "<group>"; };
-		88711B5D1FA3920200C8B5C0 /* scalar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = scalar.cpp; sourceTree = "<group>"; };
 		88711B5E1FA3920200C8B5C0 /* scalar.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = scalar.hpp; sourceTree = "<group>"; };
 		88711B611FA3945000C8B5C0 /* log.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = log.cpp; sourceTree = "<group>"; };
 		88711B621FA3945000C8B5C0 /* log.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = log.hpp; sourceTree = "<group>"; };
@@ -163,6 +160,8 @@
 				88711B681FA39FCC00C8B5C0 /* sigmoid.hpp */,
 				886FEF451FA603DB00162F9F /* softmax.cpp */,
 				886FEF461FA603DB00162F9F /* softmax.hpp */,
+				31F3AE521FAB4B4A00EE480C /* relu.cpp */,
+				31F3AE531FAB4B4A00EE480C /* relu.hpp */,
 			);
 			name = activation;
 			sourceTree = "<group>";
@@ -191,11 +190,8 @@
 			children = (
 				888880D11FA4DF88001B04F7 /* variable.cpp */,
 				888880D21FA4DF88001B04F7 /* variable.hpp */,
-				88711B5D1FA3920200C8B5C0 /* scalar.cpp */,
 				88711B5E1FA3920200C8B5C0 /* scalar.hpp */,
-				88711B4C1FA36D0100C8B5C0 /* vector.cpp */,
 				88711B4D1FA36D0100C8B5C0 /* vector.hpp */,
-				88711B4F1FA36D1000C8B5C0 /* matrix.cpp */,
 				88711B501FA36D1000C8B5C0 /* matrix.hpp */,
 			);
 			name = types;
@@ -307,13 +303,11 @@
 				311061B91FA667CD0099FF55 /* errorquadratic.cpp in Sources */,
 				311061BC1FA674AA0099FF55 /* trainer.cpp in Sources */,
 				886E149C1FA3CAF3000B463B /* add.cpp in Sources */,
-				88711B4E1FA36D0100C8B5C0 /* vector.cpp in Sources */,
 				888880D31FA4DF88001B04F7 /* variable.cpp in Sources */,
 				88711B5C1FA3914800C8B5C0 /* dotvv.cpp in Sources */,
-				88711B5F1FA3920200C8B5C0 /* scalar.cpp in Sources */,
 				886E14A61FA3D14E000B463B /* subtract.cpp in Sources */,
+				31F3AE541FAB4B4A00EE480C /* relu.cpp in Sources */,
 				3153F81F1F9F56C100D1CE46 /* main.cpp in Sources */,
-				88711B511FA36D1000C8B5C0 /* matrix.cpp in Sources */,
 				88711B661FA39B4100C8B5C0 /* dotmv.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

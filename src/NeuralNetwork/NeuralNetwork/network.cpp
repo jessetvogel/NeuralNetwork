@@ -5,7 +5,8 @@ Network::Network() {
     // Create a builder
     builder = new Builder(this);
     
-    // Set training output vector and error variable to null
+    // Set input, training output vector and error variable to null
+    input = nullptr;
     trainOutput = nullptr;
     error = nullptr;
     

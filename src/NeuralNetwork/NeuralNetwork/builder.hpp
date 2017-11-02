@@ -10,6 +10,7 @@
 #include "dotmm.hpp"
 #include "sigmoid.hpp"
 #include "softmax.hpp"
+#include "relu.hpp"
 #include "errorquadratic.hpp"
 
 class Builder {
@@ -44,9 +45,13 @@ public:
     inline Vector* sigmoid(Vector* a)                       { return addVector(Sigmoid::create(a)); }
     inline Matrix* sigmoid(Matrix* a)                       { return addMatrix(Sigmoid::create(a)); }
     
-    //    inline Scalar* softmax(Scalar* a) { return Softmax::create(a); }
+    inline Scalar* reLU(Scalar* a)                          { return addScalar(ReLU::create(a)); }
+    inline Vector* reLU(Vector* a)                          { return addVector(ReLU::create(a)); }
+    inline Matrix* reLU(Matrix* a)                          { return addMatrix(ReLU::create(a)); }
+    
+//    inline Scalar* softmax(Scalar* a)                       { return addScalar(Softmax::create(a)); }
     inline Vector* softmax(Vector* a)                       { return addVector(Softmax::create(a)); }
-    //    inline Matrix* softmax(Matrix* a) { return Softmax::create(a); }
+//    inline Matrix* softmax(Matrix* a)                       { return addMatrix(Softmax::create(a)); }
     
     inline Scalar* errorQuadratic(Variable* a, Variable* b) { return addScalar(ErrorQuadratic::create(a, b)); };
     
