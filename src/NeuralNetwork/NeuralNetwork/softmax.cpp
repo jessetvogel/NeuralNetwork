@@ -52,6 +52,6 @@ void Softmax::backpropagate() {
     gradientResult = result->getGradientAddr();
     valueResult = result->getValueAddr();
     for(dimension i = 0;i < n; ++i) {
-        *(gradientA++) = (*(valueResult++)) * ((*(gradientResult++)) - X);
+        *(gradientA++) += (*(valueResult++)) * ((*(gradientResult++)) - X);
     }
 }
