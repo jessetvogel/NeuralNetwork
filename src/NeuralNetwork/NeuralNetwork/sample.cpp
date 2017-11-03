@@ -33,11 +33,11 @@ bool Sample::save(std::string path) {
     return true;
 }
 
-bool Sample::load(std::string path) {
+Sample* Sample::load(std::string path) {
     std::ifstream in(path);
     if(in.fail()) {
         Log::print("Failed to open file");
-        return false;
+        return nullptr;
     }
     
     // Read 4 bytes
@@ -46,17 +46,29 @@ bool Sample::load(std::string path) {
     
     if(std::string(code, 4).compare("NNTS") != 0) {
         Log::print("Invalid file");
-        return false;
+        return nullptr;
     }
     
     // Read dimension of input and output
+    dimension inputSize, outputSize;
     in.read((char*) &inputSize, sizeof(inputSize));
     in.read((char*) &outputSize, sizeof(outputSize));
     
+    // Create new sample of given dimensions
+    Sample* sample = new Sample(inputSize, outputSize);
+    
     // Read data
-    if(inputSize > 0) in.read((char*) input, sizeof(scalar) * inputSize);
-    if(outputSize > 0) in.read((char*) output, sizeof(scalar) * outputSize);
+    if(inputSize > 0) in.read((char*) sample->input, sizeof(scalar) * inputSize);
+    if(outputSize > 0) in.read((char*) sample->output, sizeof(scalar) * outputSize);
     
     in.close();
-    return true;
+    return sample;
+}
+
+Sample* Sample::duplicate() {
+    // Create new sample, and copy input and output
+    Sample* sample = new Sample(inputSize, outputSize);
+    memcpy(sample->input, input, sizeof(scalar) * inputSize);
+    memcpy(sample->output, output, sizeof(scalar) * outputSize);
+    return sample;
 }

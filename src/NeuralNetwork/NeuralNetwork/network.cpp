@@ -10,8 +10,9 @@ Network::Network() {
     trainOutput = nullptr;
     error = nullptr;
     
-    // Set default learning rate
+    // Set default parameters
     learningRate = 0.5;
+    errorType = QUADRATIC;
 }
 
 Network::~Network() {
@@ -37,12 +38,20 @@ void Network::setOutput(Variable* output) {
     
     // Set the output variable
     this->output = output;
+    
+    // Update error
+    updateError();
+}
 
+void Network::updateError() {
     // Delete error if it exists
     if(error != nullptr) deleteVariable(error);
     
-    // Create new error function
-    error = builder->errorQuadratic(trainOutput, output);
+    // Create new error function (depending on type)
+    switch(errorType) {
+        case QUADRATIC:         error = builder->errorQuadratic(trainOutput, output); break;
+        case CROSS_ENTROPY:     error = builder->errorCrossEntropy(trainOutput, output); break;
+    }
 }
 
 bool Network::feed(scalar* values) {
@@ -66,12 +75,18 @@ bool Network::feed(scalar* values) {
 }
 
 bool Network::feed(Sample& sample) {
-    // Make sure size of sample matches this network
-    if(sample.getOutputSize() != trainOutput->getSize()) { // TODO: also check input size
-        Log::print("Sample has incorrect size");
+    // Make sure training output is set
+    if(trainOutput == nullptr) {
+        Log::print("No output variable was provided");
         return false;
     }
     
+    // Make sure size of sample matches this network
+    if(trainOutput != nullptr && sample.getOutputSize() != trainOutput->getSize()) { // TODO: also check input size
+        Log::print("Sample has incorrect size");
+        return false;
+    }
+
     // Feed input to network
     if(!feed(sample.input)) return false;
     
@@ -80,6 +95,7 @@ bool Network::feed(Sample& sample) {
     
     // Compute error
     error->computeValue();
+    
     return true;
 }
 

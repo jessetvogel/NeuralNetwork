@@ -10,6 +10,12 @@ class Builder;
 
 class Network {
     
+public:
+
+    enum ErrorType { QUADRATIC, CROSS_ENTROPY };
+    
+private:
+    
     Builder* builder;
     
     Variable* input;
@@ -18,11 +24,13 @@ class Network {
     Variable* trainOutput;
     
     scalar learningRate;
+    ErrorType errorType;
     
     std::vector<Variable*> variables;
     std::vector<Variable*> parameters;
     
     void deleteVariable(Variable*);
+    void updateError();
     
 public:
     
@@ -33,9 +41,10 @@ public:
     
     void setInput(Variable*);
     void setOutput(Variable*);
-    inline void addParameter(Variable* parameter) { parameters.push_back(parameter); };
+    inline void addParameter(Variable* parameter) { parameters.push_back(parameter); }
 
     inline void setLearningRate(scalar alpha) { learningRate = alpha; };
+    inline void setErrorType(ErrorType e) { if(errorType != e) { errorType = e; updateError(); } }
 
     bool feed(scalar*);
     bool feed(Sample&);

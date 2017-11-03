@@ -21,8 +21,10 @@ public:
     scalar* output;
     
     bool save(std::string);
-    bool load(std::string);
+    static Sample* load(std::string);
 
+    Sample* duplicate();
+    
 };
 
 #endif

@@ -38,13 +38,15 @@ void ReLU::evaluate() {
 
 void ReLU::backpropagate() {
     // Compute contribution to gradient
+    scalar* gradientResult = result->getGradientAddr();
     scalar* valueA = a->getValueAddr();
     scalar* gradientA = a->getGradientAddr();
     
     dimension n = a->getSize();
     for(dimension i = 0;i < n; ++i) {
         if((*(valueA++)) > 0.0)
-            *gradientA += 1.0;
+            *gradientA += *gradientResult;
         ++gradientA;
+        ++gradientResult;
     }
 }
