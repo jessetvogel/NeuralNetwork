@@ -1,17 +1,5 @@
 #include "dotmm.hpp"
 
-Matrix* DotMM::create(Matrix* a, Matrix* b) {
-    // Make sure the number of columns of a matches the number of rows of b
-    if(a->getColumnSize() != b->getRowSize()) {
-        Log::print("Matrices are incompatible");
-        return nullptr;
-    }
-    
-    // Create function object and vector, and return
-    DotMM* dotMM = new DotMM(a, b);
-    return new Matrix(a->getRowSize(), b->getColumnSize(), dotMM);
-}
-
 void DotMM::setResult(Variable* variable) {
     result = variable;
     result->addChild(a);
@@ -24,9 +12,9 @@ void DotMM::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    dimension rows = a->getRowSize();
-    dimension columns = b->getColumnSize();
-    dimension K = a->getColumnSize();
+    dimension rows = a->getDimension(MATRIX_ROWS);
+    dimension columns = b->getDimension(MATRIX_COLUMNS);
+    dimension K = a->getDimension(MATRIX_COLUMNS);
     for(dimension i = 0;i < rows; ++i) {
         for(dimension j = 0;j < columns; ++j) {
             scalar value = 0.0;
@@ -49,9 +37,9 @@ void DotMM::backpropagate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    dimension I = a->getRowSize();
-    dimension J = b->getColumnSize();
-    dimension K = a->getColumnSize();
+    dimension I = a->getDimension(MATRIX_ROWS);
+    dimension J = b->getDimension(MATRIX_COLUMNS);
+    dimension K = a->getDimension(MATRIX_COLUMNS);
     
     for(dimension i = 0;i < I; ++i) {
         for(dimension j = 0;j < J; ++j) {

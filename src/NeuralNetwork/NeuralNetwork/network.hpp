@@ -1,7 +1,7 @@
 #ifndef network_hpp
 #define network_hpp
 
-#include "scalar.hpp"
+#include "tensor.hpp"
 #include "sample.hpp"
 
 #include <vector>
@@ -40,7 +40,8 @@ public:
     inline Builder* getBuilder() { return builder; }
     
     void setInput(Variable*);
-    void setOutput(Variable*);
+    template <int... N> void setOutput(Tensor<N...>*);
+    
     inline void addParameter(Variable* parameter) { parameters.push_back(parameter); }
 
     inline void setLearningRate(scalar alpha) { learningRate = alpha; };
@@ -63,6 +64,22 @@ public:
     Scalar* error; // TODO: move to private
 };
 
+// Template implementations
 #include "builder.hpp"
+
+template <int... N>
+void Network::setOutput(Tensor<N...>* output) {
+    // Create a new trainOutput if necessary
+    if(trainOutput == nullptr || !output->sameType(trainOutput)) {
+        if(trainOutput != nullptr) deleteVariable(trainOutput);
+        trainOutput = builder->tensor<N...>();
+    }
+    
+    // Set the output variable
+    this->output = output;
+    
+    // Update error
+    updateError();
+}
 
 #endif

@@ -7,12 +7,10 @@
 
 class Variable {
     
-    const dimension size;
+    Function* function;
     
     bool computedValue;
     bool computedGradient;
-    
-    Function* function;
     
     std::vector<Variable*> inputs;
     std::vector<Variable*> dependents;
@@ -24,28 +22,35 @@ class Variable {
     
 protected:
     
+    Variable(Function*);
+    
+    dimension size;
+    dimension order;
+    dimension* dim;
+    
     scalar* value;
     scalar* gradient;
     
-    Variable(dimension, Function*);
-
 public:
     
     ~Variable();
     
     inline dimension getSize() { return size; }
+    inline dimension getOrder() { return order; }
+    inline dimension getDimension(int n) { return dim[n]; }
+    
     inline scalar* getValueAddr() { return value; }
     inline scalar* getGradientAddr() { return gradient; }
     
     inline void addChild(Variable* child) { addInput(child); child->addDependent(this); }
-    
-    void initializeValues(scalar);
-    
+
     void computeValue();
     void computeGradient();
     
     void resetValue();
     void resetGradient();
+
+    void initializeValues(scalar);
     
 };
 

@@ -1,35 +1,5 @@
 #include "subtract.hpp"
 
-Scalar* Subtract::create(Scalar* a, Scalar* b) {
-    // Create function object and scalar, and return
-    Subtract* subtract = new Subtract(a, b);
-    return new Scalar(subtract);
-}
-
-Vector* Subtract::create(Vector* a, Vector* b) {
-    // Make sure sizes of the vectors are equal
-    if(a->getSize() != b->getSize()) {
-        Log::print("Vectors are incompatible");
-        return nullptr;
-    }
-    
-    // Create function object and vector, and return
-    Subtract* subtract = new Subtract(a, b);
-    return new Vector(a->getSize(), subtract);
-}
-
-Matrix* Subtract::create(Matrix* a, Matrix* b) {
-    // Make sure sizes of the matrices are equal
-    if(a->getRowSize() != b->getRowSize() || a->getColumnSize() != b->getColumnSize()) {
-        Log::print("Matrices are incompatible");
-        return nullptr;
-    }
-    
-    // Create function object and matrix, and return
-    Subtract* subtract = new Subtract(a, b);
-    return new Matrix(a->getRowSize(), a->getColumnSize(), subtract);
-}
-
 void Subtract::setResult(Variable* variable) {
     result = variable;
     result->addChild(a);

@@ -1,24 +1,6 @@
 #include "relu.hpp"
 #include <cmath>
 
-Scalar* ReLU::create(Scalar* a) {
-    // Create function object and scalar, and return
-    ReLU* reLU = new ReLU(a);
-    return new Scalar(reLU);
-}
-
-Vector* ReLU::create(Vector* a) {
-    // Create function object and vector, and return
-    ReLU* reLU = new ReLU(a);
-    return new Vector(a->getSize(), reLU);
-}
-
-Matrix* ReLU::create(Matrix* a) {
-    // Create function object and matrix, and return
-    ReLU* reLU = new ReLU(a);
-    return new Matrix(a->getRowSize(), a->getColumnSize(), reLU);
-}
-
 void ReLU::setResult(Variable* variable) {
     result = variable;
     result->addChild(a);

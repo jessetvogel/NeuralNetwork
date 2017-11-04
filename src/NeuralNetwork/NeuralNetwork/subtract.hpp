@@ -1,9 +1,7 @@
 #ifndef subtract_hpp
 #define subtract_hpp
 
-#include "scalar.hpp"
-#include "vector.hpp"
-#include "matrix.hpp"
+#include "tensor.hpp"
 
 class Subtract : Function {
     
@@ -14,15 +12,21 @@ class Subtract : Function {
     
 public:
     
-    static Scalar* create(Scalar*, Scalar*);
-    static Vector* create(Vector*, Vector*);
-    static Matrix* create(Matrix*, Matrix*);
+    template <int ...N> static Tensor<N...>* create(Tensor<N...>*, Tensor<N...>*);
     
     void setResult(Variable*);
     void evaluate();
     void backpropagate();
     
 };
+
+// Template implementations
+template <int ...N>
+Tensor<N...>* Subtract::create(Tensor<N...>* a, Tensor<N...>* b) {
+    // Create function object and tensor, and return
+    Subtract* subtract = new Subtract(a, b);
+    return new Scalar(subtract);
+}
 
 #endif
 

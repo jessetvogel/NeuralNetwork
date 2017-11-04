@@ -1,24 +1,6 @@
 #include "tanh.hpp"
 #include <cmath>
 
-Scalar* Tanh::create(Scalar* a) {
-    // Create function object and scalar, and return
-    Tanh* tanh = new Tanh(a);
-    return new Scalar(tanh);
-}
-
-Vector* Tanh::create(Vector* a) {
-    // Create function object and vector, and return
-    Tanh* tanh = new Tanh(a);
-    return new Vector(a->getSize(), tanh);
-}
-
-Matrix* Tanh::create(Matrix* a) {
-    // Create function object and matrix, and return
-    Tanh* tanh = new Tanh(a);
-    return new Matrix(a->getRowSize(), a->getColumnSize(), tanh);
-}
-
 void Tanh::setResult(Variable* variable) {
     result = variable;
     result->addChild(a);

@@ -1,9 +1,7 @@
 #ifndef errorquadratic_hpp
 #define errorquadratic_hpp
 
-#include "scalar.hpp"
-#include "vector.hpp"
-#include "matrix.hpp"
+#include "tensor.hpp"
 
 class ErrorQuadratic : Function {
    

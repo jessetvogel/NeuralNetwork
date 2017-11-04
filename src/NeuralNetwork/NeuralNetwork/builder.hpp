@@ -5,7 +5,7 @@
 
 #include "add.hpp"
 #include "subtract.hpp"
-#include "dotvv.hpp"
+#include "dot.hpp"
 #include "dotmv.hpp"
 #include "dotmm.hpp"
 #include "sigmoid.hpp"
@@ -19,50 +19,38 @@ class Builder {
     
     Network* const network;
     
-    inline Scalar* addScalar(Scalar* s) { network->addVariable(s); return s; };
-    inline Vector* addVector(Vector* v) { network->addVariable(v); return v; };
-    inline Matrix* addMatrix(Matrix* m) { network->addVariable(m); return m; };
+    template <int ...N>
+    inline Tensor<N...>* add(Tensor<N...>* tensor) {
+        network->addVariable(tensor);
+        return tensor;
+    };
     
 public:
     
     Builder(Network* network) : network(network) {}
     
-    inline Scalar* scalar()                                     { return addScalar(new Scalar(nullptr)); }
-    inline Vector* vector(dimension n)                          { return addVector(new Vector(n, nullptr)); }
-    inline Matrix* matrix(dimension i, dimension j)             { return addMatrix(new Matrix(i, j, nullptr)); }
+    // Tensors
+    inline Scalar* scalar()                                                                     { return add(new Scalar(nullptr)); }
+    template <int N> inline Vector<N>* vector()                                                 { return add(new Vector<N>(nullptr)); }
+    template <int N, int M> inline Matrix<N, M>* matrix()                                       { return add(new Matrix<N, M>(nullptr)); }
+    template <int... N> inline Tensor<N...>* tensor()                                           { return add(new Tensor<N...>(nullptr)); }
     
-    inline Scalar* add(Scalar* a, Scalar* b)                    { return addScalar(Add::create(a, b)); }
-    inline Vector* add(Vector* a, Vector* b)                    { return addVector(Add::create(a, b)); }
-    inline Matrix* add(Matrix* a, Matrix* b)                    { return addMatrix(Add::create(a, b)); }
-    
-    inline Scalar* subtract(Scalar* a, Scalar* b)               { return addScalar(Subtract::create(a, b)); }
-    inline Vector* subtract(Vector* a, Vector* b)               { return addVector(Subtract::create(a, b)); }
-    inline Matrix* subtract(Matrix* a, Matrix* b)               { return addMatrix(Subtract::create(a, b)); }
-    
-    inline Scalar* dot(Vector* a, Vector* b)                    { return addScalar(DotVV::create(a, b)); }
-    inline Vector* dot(Matrix* a, Vector* b)                    { return addVector(DotMV::create(a, b)); }
-    inline Matrix* dot(Matrix* a, Matrix* b)                    { return addMatrix(DotMM::create(a, b)); }
+    // Arithmetic
+    template <int ...N> inline Tensor<N...>* add(Tensor<N...>* a, Tensor<N...>* b)              { return add(Add::create(a, b)); }
+    template <int ...N> inline Tensor<N...>* subtract(Tensor<N...>* a, Tensor<N...>* b)         { return add(Subtract::create(a, b)); }
+    template <int ...N> inline Scalar* inner(Tensor<N...>* a, Tensor<N...>* b)                  { return add(Dot::create(a, b)); }
+    template <int N, int M> inline Vector<N>* dot(Matrix<N, M>* a, Vector<M>* b)                { return add(DotMV::create(a, b)); }
+    template <int N, int M, int L> inline Matrix<N, L>* dot(Matrix<N, M>* a, Matrix<M, L>* b)   { return add(DotMM::create(a, b)); }
     
     // Activation functions
-    inline Scalar* sigmoid(Scalar* a)                           { return addScalar(Sigmoid::create(a)); }
-    inline Vector* sigmoid(Vector* a)                           { return addVector(Sigmoid::create(a)); }
-    inline Matrix* sigmoid(Matrix* a)                           { return addMatrix(Sigmoid::create(a)); }
-    
-    inline Scalar* reLU(Scalar* a)                              { return addScalar(ReLU::create(a)); }
-    inline Vector* reLU(Vector* a)                              { return addVector(ReLU::create(a)); }
-    inline Matrix* reLU(Matrix* a)                              { return addMatrix(ReLU::create(a)); }
-    
-    inline Scalar* tanh(Scalar* a)                              { return addScalar(Tanh::create(a)); }
-    inline Vector* tanh(Vector* a)                              { return addVector(Tanh::create(a)); }
-    inline Matrix* tanh(Matrix* a)                              { return addMatrix(Tanh::create(a)); }
-    
-//    inline Scalar* softmax(Scalar* a)                         { return addScalar(Softmax::create(a)); }
-    inline Vector* softmax(Vector* a)                           { return addVector(Softmax::create(a)); }
-//    inline Matrix* softmax(Matrix* a)                         { return addMatrix(Softmax::create(a)); }
+    template <int ...N> inline Tensor<N...>* sigmoid(Tensor<N...>* a)                           { return add(Sigmoid::create(a)); }
+    template <int ...N> inline Tensor<N...>* reLU(Tensor<N...>* a)                              { return add(ReLU::create(a)); }
+    template <int ...N> inline Tensor<N...>* tanh(Tensor<N...>* a)                              { return add(Tanh::create(a)); }
+    template <int ...N> inline Tensor<N...>* softmax(Tensor<N...>* a)                           { return add(Softmax::create(a)); }
     
     // Error functions
-    inline Scalar* errorQuadratic(Variable* a, Variable* b)     { return addScalar(ErrorQuadratic::create(a, b)); };
-    inline Scalar* errorCrossEntropy(Variable* a, Variable* b)  { return addScalar(ErrorCrossEntropy::create(a, b)); };
+    inline Scalar* errorQuadratic(Variable* a, Variable* b)                                     { return add(ErrorQuadratic::create(a, b)); };
+    inline Scalar* errorCrossEntropy(Variable* a, Variable* b)                                  { return add(ErrorCrossEntropy::create(a, b)); };
     
 };
 

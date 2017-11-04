@@ -12,9 +12,9 @@
  
  We should find
  
-          [ -2    8  -5 ]
+ [ -2    8  -5 ]
  inv(A) = [  3  -11   7 ]
-          [  9  -34  21 ]
+ [  9  -34  21 ]
  
  */
 
@@ -24,10 +24,10 @@ int main(int argc, const char * argv[]) {
     
     Builder* b = network.getBuilder();
     
-    Matrix* A = b->matrix(3, 3);
-    Matrix* B = b->matrix(3, 3);
-    Matrix* I = b->dot(A, B);
-
+    auto A = b->matrix<3, 3>();
+    auto B = b->matrix<3, 3>();
+    auto I = b->dot(A, B);
+    
     network.addParameter(B);
     network.setOutput(I);
     
@@ -52,8 +52,8 @@ int main(int argc, const char * argv[]) {
     // Before training
     std::cout << "Initial state:" << std::endl;
     network.feed(nullptr);
-    std::cout << "A = " << std::endl; Printer::printMatrix(A);
-    std::cout << "B = " << std::endl; Printer::printMatrix(B);
+    std::cout << "A = " << std::endl; Printer::print(A);
+    std::cout << "B = " << std::endl; Printer::print(B);
     
     network.feed(sample);
     std::cout << "initial error = " << network.getError() << std::endl << std::endl;
@@ -69,9 +69,9 @@ int main(int argc, const char * argv[]) {
     // After training
     std::cout << std::endl << "Final state:" << std::endl;
     network.feed();
-    std::cout << "A = " << std::endl; Printer::printMatrix(A);
-    std::cout << "B = " << std::endl; Printer::printMatrix(B);
-    std::cout << "I = " << std::endl; Printer::printMatrix(I);
+    std::cout << "A = " << std::endl; Printer::print(A);
+    std::cout << "B = " << std::endl; Printer::print(B);
+    std::cout << "I = " << std::endl; Printer::print(I);
     
     return 0;
 }

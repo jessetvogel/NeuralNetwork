@@ -3,10 +3,7 @@
 
 std::default_random_engine Variable::randomGenerator((unsigned) (std::chrono::system_clock::now().time_since_epoch().count())); // Use time-based seed
 
-Variable::Variable(dimension size, Function* function) : size(size), function(function) {
-    value = new scalar[size];
-    gradient = new scalar[size];
-    
+Variable::Variable(Function* function) : function(function) {
     if(function != nullptr)
         function->setResult(this);
 }

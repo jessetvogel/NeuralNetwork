@@ -23,18 +23,18 @@
 
 int main(int argc, const char * argv[]) {
     // Setup network
-    Network network(1);
+    Network network;
     Builder* b = network.getBuilder();
     
-    Vector* input = b->vector(2);
+    auto input = b->vector<2>();
     
-    Vector* bias1 = b->vector(2);
-    Vector* bias2 = b->vector(1);
+    auto bias1 = b->vector<2>();
+    auto bias2 = b->vector<1>();
     
-    Matrix* A = b->matrix(2, 2);
-    Matrix* B = b->matrix(1, 2);
+    auto A = b->matrix<2, 2>();
+    auto B = b->matrix<1, 2>();
     
-    Vector* output = b->sigmoid(b->add(bias2, b->dot(B, b->sigmoid(b->add(bias1, b->dot(A, input))))));
+    auto output = b->sigmoid(b->add(bias2, b->dot(B, b->sigmoid(b->add(bias1, b->dot(A, input))))));
     
     network.setInput(input);
     network.setOutput(output);
@@ -85,10 +85,10 @@ int main(int argc, const char * argv[]) {
     // Show errors on initial state
     std::cout << "Initial state:" << std::endl;
     
-    std::cout << "A = " << std::endl; Printer::printMatrix(A);
-    std::cout << "B = " << std::endl; Printer::printMatrix(B);
-    std::cout << "bias_1 = " << std::endl; Printer::printVector(bias1);
-    std::cout << "bias_2 = " << std::endl; Printer::printVector(bias2);
+    std::cout << "A = " << std::endl; Printer::print(A);
+    std::cout << "B = " << std::endl; Printer::print(B);
+    std::cout << "bias_1 = " << std::endl; Printer::print(bias1);
+    std::cout << "bias_2 = " << std::endl; Printer::print(bias2);
     
     network.feed(case_1);
     std::cout << "error 1 = " << network.getError() << std::endl;
@@ -126,10 +126,10 @@ int main(int argc, const char * argv[]) {
     std::cout << "error 4 = " << network.getError() << std::endl << std::endl;
     
     // Show final parameters
-    std::cout << "A = " << std::endl; Printer::printMatrix(A);
-    std::cout << "B = " << std::endl; Printer::printMatrix(B);
-    std::cout << "bias_1 = " << std::endl; Printer::printVector(bias1);
-    std::cout << "bias_2 = " << std::endl; Printer::printVector(bias2);
+    std::cout << "A = " << std::endl; Printer::print(A);
+    std::cout << "B = " << std::endl; Printer::print(B);
+    std::cout << "bias_1 = " << std::endl; Printer::print(bias1);
+    std::cout << "bias_2 = " << std::endl; Printer::print(bias2);
     
     return 0;
 }

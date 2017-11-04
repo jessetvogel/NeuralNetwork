@@ -29,20 +29,6 @@ void Network::setInput(Variable* input) {
     this->input = input;
 }
 
-void Network::setOutput(Variable* output) {
-    // Create a new trainOutput if necessary
-    if(trainOutput == nullptr || output->getSize() != trainOutput->getSize()) {
-        if(trainOutput != nullptr) deleteVariable(trainOutput);
-        trainOutput = builder->vector(output->getSize());
-    }
-    
-    // Set the output variable
-    this->output = output;
-    
-    // Update error
-    updateError();
-}
-
 void Network::updateError() {
     // Delete error if it exists
     if(error != nullptr) deleteVariable(error);

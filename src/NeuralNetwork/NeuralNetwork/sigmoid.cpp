@@ -1,24 +1,6 @@
 #include "sigmoid.hpp"
 #include <cmath>
 
-Scalar* Sigmoid::create(Scalar* a) {
-    // Create function object and scalar, and return
-    Sigmoid* sigmoid = new Sigmoid(a);
-    return new Scalar(sigmoid);
-}
-
-Vector* Sigmoid::create(Vector* a) {
-    // Create function object and vector, and return
-    Sigmoid* sigmoid = new Sigmoid(a);
-    return new Vector(a->getSize(), sigmoid);
-}
-
-Matrix* Sigmoid::create(Matrix* a) {
-    // Create function object and matrix, and return
-    Sigmoid* sigmoid = new Sigmoid(a);
-    return new Matrix(a->getRowSize(), a->getColumnSize(), sigmoid);
-}
-
 void Sigmoid::setResult(Variable* variable) {
     result = variable;
     result->addChild(a);
