@@ -11,8 +11,8 @@ void Sigmoid::evaluate() {
     scalar* valueResult = result->getValueAddr();
     scalar* valueA = a->getValueAddr();
     
-    dimension n = result->getSize();
-    for(dimension i = 0;i < n; ++i)
+    dim n = result->getSize();
+    for(dim i = 0;i < n; ++i)
         *(valueResult++) = sig(*(valueA++));
 }
 
@@ -22,8 +22,8 @@ void Sigmoid::backpropagate() {
     scalar* gradientResult = result->getGradientAddr();
     scalar* gradientA = a->getGradientAddr();
     
-    dimension n = result->getSize();
-    for(dimension i = 0;i < n; ++i) {
+    dim n = result->getSize();
+    for(dim i = 0;i < n; ++i) {
         *(gradientA++) += (*(gradientResult++)) * (*valueResult) * (1.0 - (*valueResult));
         ++ valueResult;
     }

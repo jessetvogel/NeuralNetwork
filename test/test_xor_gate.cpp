@@ -9,14 +9,14 @@
  
  Simulate XOR gate
  
- | 0 | 1 |
- +---+---+
+   | 0 | 1 |
+   +---+---+
  0 | 0   1
  1 | 1   0
  
  Network design:
  
- A, add bias, sigmoid             B, add bias, sigmoid
+           A, add bias, sigmoid             B, add bias, sigmoid
  input(2) ----------------------> vector(2) ---------------------> scalar(1)
  
  */
@@ -26,13 +26,13 @@ int main(int argc, const char * argv[]) {
     Network network;
     Builder* b = network.getBuilder();
     
-    auto input = b->vector<2>();
+    auto input = b->vector(2);
     
-    auto bias1 = b->vector<2>();
-    auto bias2 = b->vector<1>();
+    auto bias1 = b->vector(2);
+    auto bias2 = b->vector(1);
     
-    auto A = b->matrix<2, 2>();
-    auto B = b->matrix<1, 2>();
+    auto A = b->matrix(2, 2);
+    auto B = b->matrix(1, 2);
     
     auto output = b->sigmoid(b->add(bias2, b->dot(B, b->sigmoid(b->add(bias1, b->dot(A, input))))));
     

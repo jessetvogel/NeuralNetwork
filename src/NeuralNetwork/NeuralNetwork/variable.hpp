@@ -9,25 +9,23 @@ class Variable {
     
     Function* function;
     
-    bool computedValue;
-    bool computedGradient;
-    
     std::vector<Variable*> inputs;
     std::vector<Variable*> dependents;
+    
+    bool computedValue;
+    bool computedGradient;
     
     inline void addInput(Variable* input) { inputs.push_back(input); }
     inline void addDependent(Variable* dependent) { dependents.push_back(dependent); }
     
+    // TODO: This shouldn't be here?
     static std::default_random_engine randomGenerator;
     
 protected:
     
     Variable(Function*);
     
-    dimension size;
-    dimension order;
-    dimension* dim;
-    
+    dim size;
     scalar* value;
     scalar* gradient;
     
@@ -35,20 +33,17 @@ public:
     
     ~Variable();
     
-    inline dimension getSize() { return size; }
-    inline dimension getOrder() { return order; }
-    inline dimension getDimension(int n) { return dim[n]; }
-    
+    inline dim getSize() { return size; }
     inline scalar* getValueAddr() { return value; }
     inline scalar* getGradientAddr() { return gradient; }
     
     inline void addChild(Variable* child) { addInput(child); child->addDependent(this); }
 
+    inline void resetValue() { computedValue = false; }
+    inline void resetGradient() { computedGradient = false; }
+    
     void computeValue();
     void computeGradient();
-    
-    void resetValue();
-    void resetGradient();
 
     void initializeValues(scalar);
     

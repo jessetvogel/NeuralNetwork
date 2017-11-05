@@ -12,8 +12,8 @@ void Subtract::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    dimension n = a->getSize();
-    for(dimension i = 0;i < n; ++i)
+    dim n = a->getSize();
+    for(dim i = 0;i < n; ++i)
         *(valueResult++) = (*(valueA++)) - (*(valueB++));
 }
 
@@ -23,8 +23,8 @@ void Subtract::backpropagate() {
     scalar* gradientA = a->getGradientAddr();
     scalar* gradientB = b->getGradientAddr();
     
-    dimension n = result->getSize();
-    for(dimension i = 0;i < n; ++i) {
+    dim n = result->getSize();
+    for(dim i = 0;i < n; ++i) {
         *(gradientA++) += *gradientResult;
         *(gradientB++) -= *(gradientResult++);
     }

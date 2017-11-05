@@ -18,9 +18,6 @@ public:
     void evaluate();
     void backpropagate();
     
-public:
-    
-    
 };
 
 #endif

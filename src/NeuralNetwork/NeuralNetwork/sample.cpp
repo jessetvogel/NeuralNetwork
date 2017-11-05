@@ -1,7 +1,7 @@
 #include "sample.hpp"
 #include <fstream>
 
-Sample::Sample(dimension inputSize, dimension outputSize) : inputSize(inputSize), outputSize(outputSize) {
+Sample::Sample(dim inputSize, dim outputSize) : inputSize(inputSize), outputSize(outputSize) {
     input = new scalar[inputSize];
     output = new scalar[outputSize];
 }
@@ -50,7 +50,7 @@ Sample* Sample::load(std::string path) {
     }
     
     // Read dimension of input and output
-    dimension inputSize, outputSize;
+    dim inputSize, outputSize;
     in.read((char*) &inputSize, sizeof(inputSize));
     in.read((char*) &outputSize, sizeof(outputSize));
     

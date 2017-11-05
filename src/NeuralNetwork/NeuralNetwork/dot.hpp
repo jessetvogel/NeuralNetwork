@@ -12,7 +12,7 @@ class Dot : Function {
     
 public:
     
-    template <int...N> static Scalar* create(Tensor<N...>*, Tensor<N...>*);
+    template <int N> static Scalar* create(Tensor<N>*, Tensor<N>*);
     
     void setResult(Variable*);
     void evaluate();
@@ -21,11 +21,18 @@ public:
 };
 
 // Template implementations
-template <int ...N>
-Scalar* Dot::create(Tensor<N...>* a, Tensor<N...>* b) {
+template <int N>
+Scalar* Dot::create(Tensor<N>* a, Tensor<N>* b) {
+    // Make sure dimensions correspond
+    for(int i = 0;i < N; ++i) {
+        if(a->getDimension(i) != b->getDimension(i)) {
+            Log::print("Incompatible tensors");
+            return nullptr;
+        }
+    }
+    
     // Create function object and tensor, and return
-    Dot* dot = new Dot(a, b);
-    return new Scalar(dot);
+    return new Tensor<N>(new Dot(a, b), a->getDimensions());
 }
 
 #endif

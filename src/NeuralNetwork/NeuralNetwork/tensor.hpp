@@ -3,52 +3,91 @@
 
 #include "variable.hpp"
 
-template <int... N>
+template <int N>
 class Tensor : public Variable {
     
-    dimension dimensions[sizeof...(N)];
+    dim dimensions[N];
     
 public:
     
-    Tensor(Function* function);
-    Tensor() : Tensor(nullptr) {};
-    ~Tensor();
-    
-    
-    inline dimension getOrder() { return sizeof...(N); }
-    inline dimension getDimension(int n) { return dimensions[n]; }
-    
-    bool sameType(Variable* other) {
-        if(other->getOrder() != sizeof...(N)) return false;
-        for(int i = 0;i < sizeof...(N); ++i)
-            if(other->getDimension(i) != dimensions[i]) return false;
-        return true;
+    Tensor(Function* function, dim* d) : Variable(function) {
+        // Store dimensions
+        size = 1;
+        for(int i = 0;i < N; ++i)
+            size *= dimensions[i] = d[i];
+        value = new scalar[size];
+        gradient = new scalar[size];
+
     };
+    
+    inline dim* getDimensions() { return dimensions; }
+    inline dim getDimension(int n) { return dimensions[n]; }
+    
+};
+
+// Specializations implementations
+template <>
+class Tensor<0> : public Variable {
+    
+public:
+    
+    Tensor(Function* function) : Variable(function) {
+        size = 1;
+        value = new scalar[size];
+        gradient = new scalar[size];
+    }
+    
+    Tensor(Function* function, dim*) : Tensor(function) {}
+    Tensor() : Tensor(nullptr) {}
+    
+    inline dim* getDimensions() { return nullptr; }
+    inline dim getDimension(int) { return 0; }
+    
+};
+
+template <>
+class Tensor<1> : public Variable {
+    
+    dim length;
+    
+public:
+    
+    Tensor(Function* function, dim* d) : Variable(function) {
+        this->length = d[0];
+        size = length;
+        value = new scalar[size];
+        gradient = new scalar[size];
+    }
+    
+    inline dim* getDimensions() { return &length; }
+    inline dim getDimension(int) { return length; }
+    inline dim getLength() { return length; }
+    
+};
+
+template <>
+class Tensor<2> : public Variable {
+    
+    dim dimensions[2];
+    
+public:
+    
+    Tensor(Function* function, dim* d) : Variable(function) {
+        size = (dimensions[0] = d[0]) * (dimensions[1] = d[1]);
+        value = new scalar[size];
+        gradient = new scalar[size];
+    }
+    
+    inline dim* getDimensions() { return dimensions; }
+    inline dim getDimension(int n) { return dimensions[n]; }
+    inline dim getRowLength() { return dimensions[0]; }
+    inline dim getColumnLength() { return dimensions[1]; }
     
 };
 
 // Define some types
-typedef Tensor<> Scalar;
-template <int N> using Vector = Tensor<N>;
-template <int N, int M> using Matrix = Tensor<N, M>;
-
-#define MATRIX_ROWS (0)
-#define MATRIX_COLUMNS (1)
-
-// Template implementations
-template <int... N>
-Tensor<N...>::Tensor(Function* function) : dimensions{ N... }, Variable(function) {
-    // Compute size TODO: not sure why this can't be moved to tensor.cpp, but for some reason it won't compile then
-    size = 1;
-    for(int i = 0;i < sizeof...(N); ++i)
-        size *= dimensions[i];
-    
-    // Allocate memory
-    value = new scalar[size];
-    gradient = new scalar[size];
-    
-    // Set dim
-    dim = dimensions;
-};
+typedef Tensor<0> Scalar;
+typedef Tensor<1> Vector;
+typedef Tensor<2> Matrix;
 
 #endif

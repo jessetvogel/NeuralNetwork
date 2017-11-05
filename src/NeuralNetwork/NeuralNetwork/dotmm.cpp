@@ -1,5 +1,17 @@
 #include "dotmm.hpp"
 
+Matrix* DotMM::create(Matrix* a, Matrix* b) {
+    // Make sure dimensions match
+    if(a->getColumnLength() != b->getRowLength()) {
+        Log::print("Incompatible matrices");
+        return nullptr;
+    }
+    
+    // Create object and vector
+    dim dimensions[2] = { a->getRowLength(), b->getColumnLength() };
+    return new Matrix(new DotMM(a, b), dimensions);
+}
+
 void DotMM::setResult(Variable* variable) {
     result = variable;
     result->addChild(a);
@@ -12,15 +24,15 @@ void DotMM::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    dimension rows = a->getDimension(MATRIX_ROWS);
-    dimension columns = b->getDimension(MATRIX_COLUMNS);
-    dimension K = a->getDimension(MATRIX_COLUMNS);
-    for(dimension i = 0;i < rows; ++i) {
-        for(dimension j = 0;j < columns; ++j) {
+    dim rows = a->getRowLength();
+    dim columns = b->getColumnLength();
+    dim K = a->getColumnLength();
+    for(dim i = 0;i < rows; ++i) {
+        for(dim j = 0;j < columns; ++j) {
             scalar value = 0.0;
             scalar* vB = valueB + j;
             scalar* vA = valueA + i * K;
-            for(dimension k = 0;k < K; ++k) {
+            for(dim k = 0;k < K; ++k) {
                 value += (*(vA++)) * (*vB);
                 vB += columns;
             }
@@ -37,17 +49,17 @@ void DotMM::backpropagate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    dimension I = a->getDimension(MATRIX_ROWS);
-    dimension J = b->getDimension(MATRIX_COLUMNS);
-    dimension K = a->getDimension(MATRIX_COLUMNS);
+    dim I = a->getRowLength();
+    dim J = b->getColumnLength();
+    dim K = a->getColumnLength();
     
-    for(dimension i = 0;i < I; ++i) {
-        for(dimension j = 0;j < J; ++j) {
+    for(dim i = 0;i < I; ++i) {
+        for(dim j = 0;j < J; ++j) {
             scalar* vA = valueA + i * K;
             scalar* vB = valueB + j;
             scalar* gA = gradientA + i * K;
             scalar* gB = gradientB + j;
-            for(dimension k = 0;k < K; ++k) {
+            for(dim k = 0;k < K; ++k) {
                 *(gA++) += (*gradientResult) * (*vB);
                 *gB += (*gradientResult) * (*(vA++));
                 vB += J;

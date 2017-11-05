@@ -11,8 +11,8 @@ void Tanh::evaluate() {
     scalar* valueResult = result->getValueAddr();
     scalar* valueA = a->getValueAddr();
     
-    dimension n = result->getSize();
-    for(dimension i = 0;i < n; ++i)
+    dim n = result->getSize();
+    for(dim i = 0;i < n; ++i)
         *(valueResult++) = tanh(*(valueA++));
 }
 
@@ -22,8 +22,8 @@ void Tanh::backpropagate() {
     scalar* valueA = a->getValueAddr();
     scalar* gradientA = a->getGradientAddr();
     
-    dimension n = a->getSize();
-    for(dimension i = 0;i < n; ++i) {
+    dim n = a->getSize();
+    for(dim i = 0;i < n; ++i) {
         *(gradientA++) += (*(gradientResult++)) * (1.0 - (*valueA) * (*valueA));
         ++valueA;
     }

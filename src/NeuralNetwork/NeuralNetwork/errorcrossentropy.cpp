@@ -1,15 +1,14 @@
 #include "errorcrossentropy.hpp"
 
 Scalar* ErrorCrossEntropy::create(Variable* exact, Variable* estimate) {
-    // Make sure the sizes are the same
+    // Make sure sizes correspond
     if(exact->getSize() != estimate->getSize()) {
-        Log::print("Variables are incompatible");
+        Log::print("Incompatible variables");
         return nullptr;
     }
     
-    // Create function object and scalar, and return
-    ErrorCrossEntropy* error = new ErrorCrossEntropy(exact, estimate);
-    return new Scalar(error);
+    // Create function object and tensor, and return
+    return new Scalar(new ErrorCrossEntropy(exact, estimate));
 }
 
 void ErrorCrossEntropy::setResult(Variable* variable) {
@@ -23,8 +22,8 @@ void ErrorCrossEntropy::evaluate() {
     scalar* valueEstimate = estimate->getValueAddr();
     
     scalar sum = 0.0;
-    dimension n = exact->getSize();
-    for(dimension i = 0;i < n; ++i) {
+    dim n = exact->getSize();
+    for(dim i = 0;i < n; ++i) {
         if(*valueExact != 0.0)
             sum -= (*valueExact) * log(*valueEstimate);
         ++valueExact;
@@ -42,7 +41,7 @@ void ErrorCrossEntropy::backpropagate() {
     scalar* valueEstimate = estimate->getValueAddr();
     scalar* gradientEstimate = estimate->getGradientAddr();
     
-    dimension n = estimate->getSize();
-    for(dimension i = 0;i < n; ++i)
+    dim n = estimate->getSize();
+    for(dim i = 0;i < n; ++i)
         *(gradientEstimate++) -= gradientResult * (*(valueExact++)) / (*(valueEstimate++));
 }

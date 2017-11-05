@@ -11,20 +11,12 @@ class Tanh : Function {
     
 public:
     
-    template <int N> static Tensor<N>* create(Tensor<N>*);
+    template <int N> static Tensor<N>* create(Tensor<N>* a) { return new Tensor<N>(new Tanh(a), a->getDimensions()); };
     
     void setResult(Variable*);
     void evaluate();
     void backpropagate();
     
 };
-
-// Template implementations
-template <int N>
-Tensor<N>* Tanh::create(Tensor<N>* a) {
-    // Create function object and tensor, and return
-    Tanh* tanh = new Tanh(a);
-    return new Tensor<N>(tanh);
-}
 
 #endif

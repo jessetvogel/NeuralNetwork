@@ -6,7 +6,7 @@
 #include <cstdint>
 
 typedef double scalar; // TODO: guaranteed to be 8 bytes?
-typedef uint32_t dimension;
+typedef uint32_t dim;
 
 class Variable;
 

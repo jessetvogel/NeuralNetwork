@@ -8,21 +8,21 @@
  
  Solve Ax = y, with
  
- [  7 -2  3 ]       [ 1 ]
+     [  7 -2  3 ]       [ 1 ]
  A = [  5  1 -3 ],  y = [ 2 ]
- [  3  4 -6 ]       [ 3 ]
+     [  3  4 -6 ]       [ 3 ]
  
  Solution will be
- 
- [ 5/17 ]   [ 0.29411764705 ]
+
+     [ 5/17 ]   [ 0.29411764705 ]
  x = [ 9/17 ] = [ 0.5294117647  ]
- [   0  ]   [ 0             ]
+     [   0  ]   [ 0             ]
  
  */
 
 int main(int argc, const char * argv[]) {
     
-    Network network(3);
+    Network network;
     Builder* builder = network.getBuilder();
     
     Matrix* A = builder->matrix(3, 3);
@@ -45,9 +45,9 @@ int main(int argc, const char * argv[]) {
     // Before training
     std::cout << "Initial state:" << std::endl;
     network.feed(nullptr);
-    std::cout << "A = " << std::endl; Printer::printMatrix(A);
-    std::cout << "x = " << std::endl; Printer::printVector(x);
-    std::cout << "y = " << std::endl; Printer::printVector(y);
+    std::cout << "A = " << std::endl; Printer::print(A);
+    std::cout << "x = " << std::endl; Printer::print(x);
+    std::cout << "y = " << std::endl; Printer::print(y);
     
     network.feed(sample);
     std::cout << "error = " << network.getError() << std::endl << std::endl;
@@ -62,13 +62,13 @@ int main(int argc, const char * argv[]) {
     // After training
     std::cout << std::endl << "Final state:" << std::endl;
     network.feed(nullptr);
-    std::cout << "A = " << std::endl; Printer::printMatrix(A);
-    std::cout << "x = " << std::endl; Printer::printVector(x);
-    std::cout << "y = " << std::endl; Printer::printVector(y);
+    std::cout << "A = " << std::endl; Printer::print(A);
+    std::cout << "x = " << std::endl; Printer::print(x);
+    std::cout << "y = " << std::endl; Printer::print(y);
     
-    std::cout << "dA = " << std::endl; Printer::printMatrixGradient(A);
-    std::cout << "dx = " << std::endl; Printer::printVectorGradient(x);
-    std::cout << "dy = " << std::endl; Printer::printVectorGradient(y);
+    std::cout << "dA = " << std::endl; Printer::print(A);
+    std::cout << "dx = " << std::endl; Printer::print(x);
+    std::cout << "dy = " << std::endl; Printer::print(y);
     
     std::cout << "Error = " << std::setprecision(10) << network.getError() << std::endl;
     

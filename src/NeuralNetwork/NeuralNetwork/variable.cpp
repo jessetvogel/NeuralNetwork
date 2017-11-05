@@ -18,7 +18,7 @@ void Variable::initializeValues(scalar stddev) {
     std::normal_distribution<scalar> distribution(0.0, stddev);
     
     scalar* ptr = value;
-    for(dimension i = 0;i < size; ++i)
+    for(dim i = 0;i < size; ++i)
         *(ptr++) = distribution(randomGenerator);
 }
 
@@ -53,14 +53,4 @@ void Variable::computeGradient() {
         (*it)->computeGradient();
         (*it)->function->backpropagate();
     }
-}
-
-void Variable::resetValue() {
-    // Mark variable as unevaluated
-    computedValue = false;
-}
-
-void Variable::resetGradient() {
-    // Mark variable as unevaluated gradient
-    computedGradient = false;
 }

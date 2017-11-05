@@ -12,7 +12,7 @@ class Subtract : Function {
     
 public:
     
-    template <int ...N> static Tensor<N...>* create(Tensor<N...>*, Tensor<N...>*);
+    template<int N> static Tensor<N>* create(Tensor<N>*, Tensor<N>*);
     
     void setResult(Variable*);
     void evaluate();
@@ -21,11 +21,18 @@ public:
 };
 
 // Template implementations
-template <int ...N>
-Tensor<N...>* Subtract::create(Tensor<N...>* a, Tensor<N...>* b) {
+template <int N>
+Tensor<N>* Subtract::create(Tensor<N>* a, Tensor<N>* b) {
+    // Make sure dimensions correspond
+    for(int i = 0;i < N; ++i) {
+        if(a->getDimension(i) != b->getDimension(i)) {
+            Log::print("Incompatible tensors");
+            return nullptr;
+        }
+    }
+    
     // Create function object and tensor, and return
-    Subtract* subtract = new Subtract(a, b);
-    return new Scalar(subtract);
+    return new Tensor<N>(new Subtract(a, b), a->getDimensions());
 }
 
 #endif

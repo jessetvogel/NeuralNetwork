@@ -11,20 +11,12 @@ class ReLU : Function {
     
 public:
     
-    template <int ...N> static Tensor<N...>* create(Tensor<N...>*);
+    template <int N> static Tensor<N>* create(Tensor<N>* a) { return new Tensor<N>(new ReLU(a), a->getDimensions()); };
     
     void setResult(Variable*);
     void evaluate();
     void backpropagate();
     
 };
-
-// Template implementations
-template <int... N>
-Tensor<N...>* ReLU::create(Tensor<N...>* a) {
-    // Create function object and tensor, and return
-    ReLU* reLU = new ReLU(a);
-    return new Tensor<N...>(reLU);
-}
 
 #endif

@@ -1,15 +1,14 @@
 #include "errorquadratic.hpp"
 
 Scalar* ErrorQuadratic::create(Variable* exact, Variable* estimate) {
-    // Make sure the sizes are the same
+    // Make sure sizes correspond
     if(exact->getSize() != estimate->getSize()) {
-        Log::print("Variables are incompatible");
+        Log::print("Incompatible variables");
         return nullptr;
     }
     
-    // Create function object and scalar, and return
-    ErrorQuadratic* error = new ErrorQuadratic(exact, estimate);
-    return new Scalar(error);
+    // Create function object and tensor, and return
+    return new Scalar(new ErrorQuadratic(exact, estimate));
 }
 
 void ErrorQuadratic::setResult(Variable* variable) {
@@ -23,8 +22,8 @@ void ErrorQuadratic::evaluate() {
     scalar* valueEstimate = estimate->getValueAddr();
     
     scalar quadraticSum = 0.0;
-    dimension n = exact->getSize();
-    for(dimension i = 0;i < n; ++i) {
+    dim n = exact->getSize();
+    for(dim i = 0;i < n; ++i) {
         quadraticSum += ((*valueEstimate) - (*valueExact)) * ((*valueEstimate) - (*valueExact));
         ++valueExact;
         ++valueEstimate;
@@ -41,7 +40,7 @@ void ErrorQuadratic::backpropagate() {
     scalar* valueEstimate = estimate->getValueAddr();
     scalar* gradientEstimate = estimate->getGradientAddr();
     
-    dimension n = estimate->getSize();
-    for(dimension i = 0;i < n; ++i)
+    dim n = estimate->getSize();
+    for(dim i = 0;i < n; ++i)
         *(gradientEstimate++) += gradientResult * ((*valueEstimate++) - (*valueExact++));
 }

@@ -19,8 +19,8 @@ int main(int argc, const char * argv[]) {
     
     network.feed();
     
-    Printer::printVector(i);
-    Printer::printVector(o);
+    Printer::print(i);
+    Printer::print(o);
     
     Sample sample(0, 3);
     scalar y[3] = { 0.1, 0.7, 0.2 };
@@ -29,14 +29,13 @@ int main(int argc, const char * argv[]) {
     GradientChecker::check(network, sample);
     
     network.setLearningRate(0.01);
-    for(int i = 1;network.getError() > 0.001; ++i) {
+    for(int i = 1;network.getError() > 0.000001; ++i) {
         network.train(sample);
         std::cout << "Round #" << i << " - error = " << network.getError() << std::endl;
     }
     
-    Printer::printVector(i);
-    Printer::printVector(o);
+    Printer::print(i);
+    Printer::print(o);
     
     return 0;
 }
-

@@ -27,8 +27,8 @@ void GradientChecker::check(Network& network, Sample& sample) {
         Variable* v = *it;
         scalar* value = v->getValueAddr();
         scalar* gradient = v->getGradientAddr();
-        dimension n = v->getSize();
-        for(dimension i = 0;i < n; ++i) {
+        dim n = v->getSize();
+        for(dim i = 0;i < n; ++i) {
             *value += h;
             network.feed(sample);
             scalar adjustedError = network.getError();

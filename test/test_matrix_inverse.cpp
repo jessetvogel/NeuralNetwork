@@ -12,9 +12,9 @@
  
  We should find
  
- [ -2    8  -5 ]
+          [ -2    8  -5 ]
  inv(A) = [  3  -11   7 ]
- [  9  -34  21 ]
+          [  9  -34  21 ]
  
  */
 
@@ -24,8 +24,8 @@ int main(int argc, const char * argv[]) {
     
     Builder* b = network.getBuilder();
     
-    auto A = b->matrix<3, 3>();
-    auto B = b->matrix<3, 3>();
+    auto A = b->matrix(3, 3);
+    auto B = b->matrix(3, 3);
     auto I = b->dot(A, B);
     
     network.addParameter(B);

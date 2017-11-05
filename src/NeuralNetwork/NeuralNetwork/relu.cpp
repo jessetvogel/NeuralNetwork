@@ -11,8 +11,8 @@ void ReLU::evaluate() {
     scalar* valueResult = result->getValueAddr();
     scalar* valueA = a->getValueAddr();
     
-    dimension n = result->getSize();
-    for(dimension i = 0;i < n; ++i) {
+    dim n = result->getSize();
+    for(dim i = 0;i < n; ++i) {
         *(valueResult++) = (*valueA) > 0.0 ? (*valueA) : 0.0;
         ++valueA;
     }
@@ -24,8 +24,8 @@ void ReLU::backpropagate() {
     scalar* valueA = a->getValueAddr();
     scalar* gradientA = a->getGradientAddr();
     
-    dimension n = a->getSize();
-    for(dimension i = 0;i < n; ++i) {
+    dim n = a->getSize();
+    for(dim i = 0;i < n; ++i) {
         if((*(valueA++)) > 0.0)
             *gradientA += *gradientResult;
         ++gradientA;

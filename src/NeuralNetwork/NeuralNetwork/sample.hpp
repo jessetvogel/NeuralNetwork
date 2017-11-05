@@ -6,16 +6,16 @@
 
 class Sample {
 
-    const dimension inputSize;
-    const dimension outputSize;
+    const dim inputSize;
+    const dim outputSize;
     
 public:
     
-    Sample(dimension, dimension);
+    Sample(dim, dim);
     ~Sample();
     
-    inline dimension getInputSize() { return inputSize; }
-    inline dimension getOutputSize() { return outputSize; }
+    inline dim getInputSize() { return inputSize; }
+    inline dim getOutputSize() { return outputSize; }
     
     scalar* input;
     scalar* output;

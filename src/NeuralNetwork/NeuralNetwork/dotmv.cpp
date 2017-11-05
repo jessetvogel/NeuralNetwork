@@ -1,5 +1,17 @@
 #include "dotmv.hpp"
 
+Vector* DotMV::create(Matrix* a, Vector* b) {
+    // Make sure dimensions match
+    if(a->getColumnLength() != b->getLength()) {
+        Log::print("Incompatible matrix and vector");
+        return nullptr;
+    }
+    
+    // Create object and vector
+    dim length = a->getRowLength();
+    return new Vector(new DotMV(a, b), &length);
+}
+
 void DotMV::setResult(Variable* variable) {
     result = variable;
     result->addChild(a);
@@ -12,13 +24,13 @@ void DotMV::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB;
     
-    const dimension rows = a->getDimension(MATRIX_ROWS);
-    const dimension columns = a->getDimension(MATRIX_COLUMNS);
-    for(dimension i = 0;i < rows; ++i) {
+    dim rows = a->getRowLength();
+    dim columns = a->getColumnLength();
+    for(dim i = 0;i < rows; ++i) {
         // Compute inner product of i'th row of the matrix with vector
         scalar value = 0.0;
         valueB = b->getValueAddr();
-        for(dimension j = 0;j < columns; ++j)
+        for(dim j = 0;j < columns; ++j)
             value += (*(valueA++)) * (*(valueB++));
         
         // Store result
@@ -35,12 +47,12 @@ void DotMV::backpropagate() {
     scalar* gradientB;
     
     // Feels good, computing an outer product and a matrix-vector product in just 10 lines of code
-    dimension rows = a->getDimension(MATRIX_ROWS);
-    dimension columns = a->getDimension(MATRIX_COLUMNS);
-    for(dimension i = 0;i < rows; ++i) {
+    dim rows = a->getRowLength();
+    dim columns = a->getColumnLength();
+    for(dim i = 0;i < rows; ++i) {
         valueB = b->getValueAddr();
         gradientB = b->getGradientAddr();
-        for(dimension j = 0;j < columns; ++j) {
+        for(dim j = 0;j < columns; ++j) {
             *(gradientA++) += (*gradientResult) * (*(valueB++));
             *(gradientB++) += (*gradientResult) * (*(valueA++));
         }

@@ -29,6 +29,20 @@ void Network::setInput(Variable* input) {
     this->input = input;
 }
 
+void Network::setOutput(Variable* output) {
+    // Create a new trainOutput if necessary
+    if(trainOutput == nullptr || output->getSize() != trainOutput->getSize()) {
+        if(trainOutput != nullptr) deleteVariable(trainOutput);
+        trainOutput = builder->vector(output->getSize());
+    }
+    
+    // Set the output variable
+    this->output = output;
+    
+    // Update error
+    updateError();
+}
+
 void Network::updateError() {
     // Delete error if it exists
     if(error != nullptr) deleteVariable(error);
@@ -109,8 +123,8 @@ bool Network::train(Sample& sample) {
         Variable* variable = *it;
         variable->computeGradient();
         scalar* gradient = variable->getGradientAddr();
-        dimension n = variable->getSize();
-        for(dimension i = 0;i < n; ++i) {
+        dim n = variable->getSize();
+        for(dim i = 0;i < n; ++i) {
             gradientNorm += (*gradient) * (*gradient);
             ++ gradient;
         }
@@ -129,8 +143,8 @@ bool Network::train(Sample& sample) {
         Variable* variable = *it;
         scalar* value = variable->getValueAddr();
         scalar* gradient = variable->getGradientAddr();
-        dimension n = variable->getSize();
-        for(dimension i = 0;i < n; ++i)
+        dim n = variable->getSize();
+        for(dim i = 0;i < n; ++i)
             *(value++) -= (*(gradient++)) * alphaOverGradientNorm;
     }
     
