@@ -2,13 +2,13 @@
 
 Matrix* DotMM::create(Matrix* a, Matrix* b) {
     // Make sure dimensions match
-    if(a->getColumnLength() != b->getRowLength()) {
+    if(a->getDimension(MATRIX_COLUMNS) != b->getDimension(MATRIX_ROWS)) {
         Log::print("Incompatible matrices");
         return nullptr;
     }
     
     // Create object and vector
-    dim dimensions[2] = { a->getRowLength(), b->getColumnLength() };
+    dim dimensions[2] = { a->getDimension(MATRIX_ROWS), b->getDimension(MATRIX_COLUMNS) };
     return new Matrix(new DotMM(a, b), dimensions);
 }
 
@@ -24,9 +24,9 @@ void DotMM::evaluate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    dim rows = a->getRowLength();
-    dim columns = b->getColumnLength();
-    dim K = a->getColumnLength();
+    dim rows = a->getDimension(MATRIX_ROWS);
+    dim columns = b->getDimension(MATRIX_COLUMNS);
+    dim K = a->getDimension(MATRIX_COLUMNS);
     for(dim i = 0;i < rows; ++i) {
         for(dim j = 0;j < columns; ++j) {
             scalar value = 0.0;
@@ -49,9 +49,9 @@ void DotMM::backpropagate() {
     scalar* valueA = a->getValueAddr();
     scalar* valueB = b->getValueAddr();
     
-    dim I = a->getRowLength();
-    dim J = b->getColumnLength();
-    dim K = a->getColumnLength();
+    dim I = a->getDimension(MATRIX_ROWS);
+    dim J = b->getDimension(MATRIX_COLUMNS);
+    dim K = a->getDimension(MATRIX_COLUMNS);
     
     for(dim i = 0;i < I; ++i) {
         for(dim j = 0;j < J; ++j) {

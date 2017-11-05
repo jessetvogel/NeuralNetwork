@@ -15,6 +15,8 @@
 		315013E01FA8A5A800BEEF88 /* gradientchecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 315013DE1FA8A5A800BEEF88 /* gradientchecker.cpp */; };
 		3153F81F1F9F56C100D1CE46 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3153F81E1F9F56C100D1CE46 /* main.cpp */; };
 		31D0CCEF1FA7548100FBD851 /* dotmm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D0CCED1FA7548100FBD851 /* dotmm.cpp */; };
+		31D149701FAF477F0002D64F /* convolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D1496E1FAF477F0002D64F /* convolution.cpp */; };
+		31D149731FAF4F480002D64F /* maxpool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31D149711FAF4F480002D64F /* maxpool.cpp */; };
 		31DB29B21FACB74E002D146F /* errorcrossentropy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31DB29B01FACB74E002D146F /* errorcrossentropy.cpp */; };
 		31DB29DB1FAD03D2002D146F /* tanh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31DB29D91FAD03D2002D146F /* tanh.cpp */; };
 		31F3AE541FAB4B4A00EE480C /* relu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 31F3AE521FAB4B4A00EE480C /* relu.cpp */; };
@@ -59,6 +61,11 @@
 		31D0CCEB1FA74D4600FBD851 /* builder.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = builder.hpp; sourceTree = "<group>"; };
 		31D0CCED1FA7548100FBD851 /* dotmm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = dotmm.cpp; sourceTree = "<group>"; };
 		31D0CCEE1FA7548100FBD851 /* dotmm.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = dotmm.hpp; sourceTree = "<group>"; };
+		31D1496C1FAF43910002D64F /* types.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = types.hpp; sourceTree = "<group>"; };
+		31D1496E1FAF477F0002D64F /* convolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = convolution.cpp; sourceTree = "<group>"; };
+		31D1496F1FAF477F0002D64F /* convolution.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = convolution.hpp; sourceTree = "<group>"; };
+		31D149711FAF4F480002D64F /* maxpool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maxpool.cpp; sourceTree = "<group>"; };
+		31D149721FAF4F480002D64F /* maxpool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = maxpool.hpp; sourceTree = "<group>"; };
 		31DB29B01FACB74E002D146F /* errorcrossentropy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = errorcrossentropy.cpp; sourceTree = "<group>"; };
 		31DB29B11FACB74E002D146F /* errorcrossentropy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = errorcrossentropy.hpp; sourceTree = "<group>"; };
 		31DB29D91FAD03D2002D146F /* tanh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tanh.cpp; sourceTree = "<group>"; };
@@ -136,22 +143,32 @@
 			path = NeuralNetwork;
 			sourceTree = "<group>";
 		};
-		886E14991FA3CAC2000B463B /* add */ = {
+		31D1496D1FAF47300002D64F /* convolutional */ = {
+			isa = PBXGroup;
+			children = (
+				31D1496E1FAF477F0002D64F /* convolution.cpp */,
+				31D1496F1FAF477F0002D64F /* convolution.hpp */,
+				31D149711FAF4F480002D64F /* maxpool.cpp */,
+				31D149721FAF4F480002D64F /* maxpool.hpp */,
+			);
+			name = convolutional;
+			sourceTree = "<group>";
+		};
+		886E14991FA3CAC2000B463B /* arithmetic */ = {
 			isa = PBXGroup;
 			children = (
 				886E149A1FA3CAF3000B463B /* add.cpp */,
 				886E149B1FA3CAF3000B463B /* add.hpp */,
-			);
-			name = add;
-			sourceTree = "<group>";
-		};
-		886E14A31FA3D13B000B463B /* subtract */ = {
-			isa = PBXGroup;
-			children = (
 				886E14A41FA3D14E000B463B /* subtract.cpp */,
 				886E14A51FA3D14E000B463B /* subtract.hpp */,
+				88711B5A1FA3914800C8B5C0 /* dot.cpp */,
+				88711B5B1FA3914800C8B5C0 /* dot.hpp */,
+				88711B641FA39B4100C8B5C0 /* dotmv.cpp */,
+				88711B651FA39B4100C8B5C0 /* dotmv.hpp */,
+				31D0CCED1FA7548100FBD851 /* dotmm.cpp */,
+				31D0CCEE1FA7548100FBD851 /* dotmm.hpp */,
 			);
-			name = subtract;
+			name = arithmetic;
 			sourceTree = "<group>";
 		};
 		886FEF481FA6056700162F9F /* activation */ = {
@@ -196,6 +213,7 @@
 				888880D11FA4DF88001B04F7 /* variable.cpp */,
 				888880D21FA4DF88001B04F7 /* variable.hpp */,
 				317729311FAE6E8A00C28BB3 /* tensor.hpp */,
+				31D1496C1FAF43910002D64F /* types.hpp */,
 			);
 			name = types;
 			sourceTree = "<group>";
@@ -203,11 +221,10 @@
 		88711B591FA3912A00C8B5C0 /* functions */ = {
 			isa = PBXGroup;
 			children = (
-				886E14991FA3CAC2000B463B /* add */,
-				886E14A31FA3D13B000B463B /* subtract */,
-				88711B6A1FA39FD600C8B5C0 /* product */,
 				886FEF481FA6056700162F9F /* activation */,
 				886FEF511FA6081800162F9F /* error */,
+				886E14991FA3CAC2000B463B /* arithmetic */,
+				31D1496D1FAF47300002D64F /* convolutional */,
 			);
 			name = functions;
 			sourceTree = "<group>";
@@ -223,19 +240,6 @@
 				315013DF1FA8A5A800BEEF88 /* gradientchecker.hpp */,
 			);
 			name = util;
-			sourceTree = "<group>";
-		};
-		88711B6A1FA39FD600C8B5C0 /* product */ = {
-			isa = PBXGroup;
-			children = (
-				88711B5A1FA3914800C8B5C0 /* dot.cpp */,
-				88711B5B1FA3914800C8B5C0 /* dot.hpp */,
-				88711B641FA39B4100C8B5C0 /* dotmv.cpp */,
-				88711B651FA39B4100C8B5C0 /* dotmv.hpp */,
-				31D0CCED1FA7548100FBD851 /* dotmm.cpp */,
-				31D0CCEE1FA7548100FBD851 /* dotmm.hpp */,
-			);
-			name = product;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,9 +314,11 @@
 				31DB29DB1FAD03D2002D146F /* tanh.cpp in Sources */,
 				88711B5C1FA3914800C8B5C0 /* dot.cpp in Sources */,
 				886E14A61FA3D14E000B463B /* subtract.cpp in Sources */,
+				31D149701FAF477F0002D64F /* convolution.cpp in Sources */,
 				31F3AE541FAB4B4A00EE480C /* relu.cpp in Sources */,
 				3153F81F1F9F56C100D1CE46 /* main.cpp in Sources */,
 				88711B661FA39B4100C8B5C0 /* dotmv.cpp in Sources */,
+				31D149731FAF4F480002D64F /* maxpool.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

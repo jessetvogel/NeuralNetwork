@@ -10,7 +10,7 @@ void Printer::print(Tensor<0>* tensor) {
 template <>
 void Printer::print(Tensor<1>* tensor) {
     scalar* value = tensor->getValueAddr();
-    dim n = tensor->getLength();
+    dim n = tensor->getDimension(MATRIX_ROWS);
     OUTPUT_STREAM << "[ ";
     for(dim i = 0;i < n; ++i) {
         OUTPUT_STREAM << (*(value++));
@@ -22,8 +22,8 @@ void Printer::print(Tensor<1>* tensor) {
 template <>
 void Printer::print(Tensor<2>* tensor) {
     scalar* value = tensor->getValueAddr();
-    dim rows = tensor->getRowLength();
-    dim columns = tensor->getColumnLength();
+    dim rows = tensor->getDimension(MATRIX_ROWS);
+    dim columns = tensor->getDimension(MATRIX_COLUMNS);
     for(dim i = 0;i < rows; ++i) {
         OUTPUT_STREAM << "[ ";
         for(dim j = 0;j < columns; ++j) {
