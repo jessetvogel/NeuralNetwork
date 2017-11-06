@@ -1,6 +1,7 @@
 #ifndef printer_hpp
 #define printer_hpp
 
+#include <string>
 #include "tensor.hpp"
 #include "sample.hpp"
 
@@ -10,10 +11,12 @@ class Printer {
 
 public:
     
+    static void print(std::string);
+    
     template<int N> static void print(Tensor<N>*);
     template<int N> static void printGradient(Tensor<N>*);
     
-    static void printSample(Sample&);
+    static void print(Sample&);
     
 };
 

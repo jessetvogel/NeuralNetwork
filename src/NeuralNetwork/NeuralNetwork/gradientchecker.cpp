@@ -22,7 +22,7 @@ void GradientChecker::check(Network& network, Sample& sample) {
     
     // Check gradients
     bool foundError = false;
-    scalar h = 0.0001;
+    scalar h = 0.000001;
     for(auto it = parameters->begin();it != parameters->end(); ++it) {
         Variable* v = *it;
         scalar* value = v->getValueAddr();

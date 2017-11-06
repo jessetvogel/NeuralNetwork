@@ -5,10 +5,10 @@
 
 class Convolution : Function {
     
-    Volume* const a;
-    FilterSet* const b;
+    Volume* const volume;
+    FilterSet* const filters;
     
-    Convolution(Volume* a, FilterSet* b) : a(a), b(b) {};
+    Convolution(Volume* volume, FilterSet* filters) : volume(volume), filters(filters) {};
     
 public:
     

@@ -14,7 +14,7 @@ public:
         // Store dimensions
         size = 1;
         for(int i = 0;i < N; ++i)
-            size *= dimensions[i] = d[i];
+            size *= (dimensions[i] = d[i]);
         value = new scalar[size];
         gradient = new scalar[size];
 
@@ -38,7 +38,6 @@ public:
     }
     
     Tensor(Function* function, dim*) : Tensor(function) {}
-    Tensor() : Tensor(nullptr) {}
     
     inline dim* getDimensions() { return nullptr; }
     inline dim getDimension(int) { return 0; }

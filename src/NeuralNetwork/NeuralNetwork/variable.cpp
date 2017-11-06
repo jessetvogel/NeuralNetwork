@@ -6,6 +6,10 @@ std::default_random_engine Variable::randomGenerator((unsigned) (std::chrono::sy
 Variable::Variable(Function* function) : function(function) {
     if(function != nullptr)
         function->setResult(this);
+    
+    // Default values
+    computedValue = false;
+    computedGradient = false;
 }
 
 Variable::~Variable() {

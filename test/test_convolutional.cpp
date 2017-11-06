@@ -6,9 +6,9 @@
 /*
  
  Checks steps in convolutional layer:
-     - feed forward
-     - check gradient
-     - optimize filterset (train network)
+ - feed forward
+ - check gradient
+ - optimize filterset (train network)
  
  Input =
  [ 1, 5, 9, 13 ] [ 17, 21, 25, 29 ]
@@ -41,12 +41,12 @@ int main(int argc, const char * argv[]) {
     
     // Set values
     scalar x[32] = {
-         1.0, 17.0,  2.0, 18.0,
-         3.0, 19.0,  4.0, 20.0,
-         5.0, 21.0,  6.0, 22.0,
-         7.0, 23.0,  8.0, 24.0,
+        1.0, 17.0,  2.0, 18.0,
+        3.0, 19.0,  4.0, 20.0,
+        5.0, 21.0,  6.0, 22.0,
+        7.0, 23.0,  8.0, 24.0,
         
-         9.0, 25.0, 10.0, 26.0,
+        9.0, 25.0, 10.0, 26.0,
         11.0, 27.0, 12.0, 28.0,
         13.0, 29.0, 14.0, 30.0,
         15.0, 31.0, 16.0, 32.0
@@ -77,7 +77,7 @@ int main(int argc, const char * argv[]) {
     Printer::print(filterset);
     Printer::print("Output = ");
     Printer::print(output);
-
+    
     // Compute some sample to test gradient
     Sample sample(0, 18);
     memcpy(sample.output, output->getValueAddr(), sizeof(scalar) * 18);

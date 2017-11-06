@@ -1,6 +1,10 @@
 #include "printer.hpp"
 #include <iostream>
 
+void Printer::print(std::string message) {
+    OUTPUT_STREAM << message << std::endl;
+}
+
 template <>
 void Printer::print(Tensor<0>* tensor) {
     scalar* value = tensor->getValueAddr();
@@ -35,7 +39,51 @@ void Printer::print(Tensor<2>* tensor) {
     OUTPUT_STREAM << std::endl;
 }
 
-void Printer::printSample(Sample& sample) {
+template <>
+void Printer::print(Tensor<3>* tensor) {
+    scalar* value = tensor->getValueAddr();
+    dim width = tensor->getDimension(VOLUME_WIDTH);
+    dim height = tensor->getDimension(VOLUME_HEIGHT);
+    dim depth = tensor->getDimension(VOLUME_DEPTH);
+    
+    for(dim h = 0;h < height; ++h) {
+        for(dim d = 0;d < depth; ++d) {
+            OUTPUT_STREAM << "[ ";
+            for(dim w = 0;w < width; ++w) {
+                OUTPUT_STREAM << value[d + depth * (h + height * w)];
+                if(w < width - 1) OUTPUT_STREAM << ", ";
+            }
+            OUTPUT_STREAM << " ] ";
+        }
+        OUTPUT_STREAM << std::endl;
+    }
+    OUTPUT_STREAM << std::endl;
+}
+
+template <>
+void Printer::print(Tensor<4>* tensor) {
+    scalar* value = tensor->getValueAddr();
+    dim width = tensor->getDimension(FILTERSET_WIDTH);
+    dim height = tensor->getDimension(FILTERSET_HEIGHT);
+    dim depth = tensor->getDimension(FILTERSET_DEPTH);
+    dim amount = tensor->getDimension(FILTERSET_AMOUNT);
+    for(dim a = 0;a < amount; ++ a) {
+        for(dim h = 0;h < height; ++h) {
+            for(dim d = 0;d < depth; ++d) {
+                OUTPUT_STREAM << "[ ";
+                for(dim w = 0;w < width; ++w) {
+                    OUTPUT_STREAM << value[a + amount * (d + depth * (h + height * w))];
+                    if(w < width - 1) OUTPUT_STREAM << ", ";
+                }
+                OUTPUT_STREAM << " ] ";
+            }
+            OUTPUT_STREAM << std::endl;
+        }
+        OUTPUT_STREAM << std::endl;
+    }
+}
+
+void Printer::print(Sample& sample) {
     dim inputSize = sample.getInputSize();
     dim outputSize = sample.getOutputSize();
     scalar* input = sample.input;
