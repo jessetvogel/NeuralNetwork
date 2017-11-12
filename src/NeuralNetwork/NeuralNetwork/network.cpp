@@ -1,6 +1,8 @@
 #include "network.hpp"
 #include "printer.hpp"
 
+#include <iostream>
+
 Network::Network() {
     // Create a builder
     builder = new Builder(this);
@@ -129,6 +131,8 @@ bool Network::train(Sample& sample) {
             ++ gradient;
         }
     }
+    
+    std::cout << "GN = " << gradientNorm << std::endl;
     
     // In practice unnecessary, but just to be sure
     if(gradientNorm <= 0.0) {

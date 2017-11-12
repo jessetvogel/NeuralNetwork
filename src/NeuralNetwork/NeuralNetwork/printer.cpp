@@ -6,14 +6,12 @@ void Printer::print(std::string message) {
 }
 
 template <>
-void Printer::print(Tensor<0>* tensor) {
-    scalar* value = tensor->getValueAddr();
+void Printer::print(Tensor<0>* tensor, scalar* value) {
     OUTPUT_STREAM << "[" << *value << "]" << std::endl << std::endl;
 }
 
 template <>
-void Printer::print(Tensor<1>* tensor) {
-    scalar* value = tensor->getValueAddr();
+void Printer::print(Tensor<1>* tensor, scalar* value) {
     dim n = tensor->getDimension(MATRIX_ROWS);
     OUTPUT_STREAM << "[ ";
     for(dim i = 0;i < n; ++i) {
@@ -24,8 +22,7 @@ void Printer::print(Tensor<1>* tensor) {
 }
 
 template <>
-void Printer::print(Tensor<2>* tensor) {
-    scalar* value = tensor->getValueAddr();
+void Printer::print(Tensor<2>* tensor, scalar* value) {
     dim rows = tensor->getDimension(MATRIX_ROWS);
     dim columns = tensor->getDimension(MATRIX_COLUMNS);
     for(dim i = 0;i < rows; ++i) {
@@ -40,8 +37,7 @@ void Printer::print(Tensor<2>* tensor) {
 }
 
 template <>
-void Printer::print(Tensor<3>* tensor) {
-    scalar* value = tensor->getValueAddr();
+void Printer::print(Tensor<3>* tensor, scalar* value) {
     dim width = tensor->getDimension(VOLUME_WIDTH);
     dim height = tensor->getDimension(VOLUME_HEIGHT);
     dim depth = tensor->getDimension(VOLUME_DEPTH);
@@ -61,8 +57,7 @@ void Printer::print(Tensor<3>* tensor) {
 }
 
 template <>
-void Printer::print(Tensor<4>* tensor) {
-    scalar* value = tensor->getValueAddr();
+void Printer::print(Tensor<4>* tensor, scalar* value) {
     dim width = tensor->getDimension(FILTERSET_WIDTH);
     dim height = tensor->getDimension(FILTERSET_HEIGHT);
     dim depth = tensor->getDimension(FILTERSET_DEPTH);
