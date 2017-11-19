@@ -3,7 +3,7 @@
 
 #include <string>
 #include "tensor.hpp"
-#include "sample.hpp"
+#include "trainingset.hpp"
 
 #define OUTPUT_STREAM std::cerr
 
@@ -22,8 +22,8 @@ public:
     template<int N> static void printGradient(Tensor<N>* tensor) {
         print(tensor, tensor->getGradientAddr());
     };
-    
-    static void print(Sample&);
+  
+    static void print(TrainingSet*);
     
 };
 

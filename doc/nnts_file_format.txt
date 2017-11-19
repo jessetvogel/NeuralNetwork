@@ -1,0 +1,21 @@
++--------------------------------------+
+|           NNTS file format           |
++--------------------------------------+
+
+Header
+
+    4 bytes: 0x4E 0x4E 0x54 0x53 (NNTS)
+    4 bytes: int S     - amount of samples
+    1 byte:  int BI    - bytes per input value
+    1 byte:  int BO    - bytes per output value
+    8 bytes: double LI - input lower bound
+    8 bytes: double HI - input upper bound
+    8 bytes: double LO - output lower bound
+    8 bytes: double HO - output upper bound
+    4 bytes: int SI    - sample input size
+    4 bytes: int SO    - sample output size
+
+S samples
+
+    SI * BI bytes - input values
+    SO * BO bytes - output values

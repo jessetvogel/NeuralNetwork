@@ -1,12 +1,11 @@
-#include "network.hpp"
+#include "trainingset.hpp"
 #include "printer.hpp"
-#include "gradientchecker.hpp"
-#include <iostream>
 
 int main(int argc, const char * argv[]) {
-    
-    Sample* sample = Sample::load("/Users/jessetvogel/Desktop/test123.nnts");
-    Printer::print(*sample);
+
+    // Load set
+    TrainingSet* set = TrainingSet::load("/Users/jessetvogel/Desktop/data/training.nnts");
+    Printer::print(set);
     
     return 0;
 }

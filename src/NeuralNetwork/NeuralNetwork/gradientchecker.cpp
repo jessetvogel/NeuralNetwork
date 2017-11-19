@@ -1,9 +1,9 @@
 #include "gradientchecker.hpp"
 #include <cmath>
 
-void GradientChecker::check(Network& network, Sample& sample) {
+void GradientChecker::check(Network& network, scalar* inputValues, scalar* outputValues) {
     // Compute initial error
-    network.feed(sample);
+    network.feed(inputValues, outputValues);
     scalar initialError = network.getError();
     
     // Reset gradient of all variables
@@ -30,7 +30,7 @@ void GradientChecker::check(Network& network, Sample& sample) {
         dim n = v->getSize();
         for(dim i = 0;i < n; ++i) {
             *value += h;
-            network.feed(sample);
+            network.feed(inputValues, outputValues);
             scalar adjustedError = network.getError();
             scalar gradientByTrial = (adjustedError - initialError) / h;
             *value -= h;

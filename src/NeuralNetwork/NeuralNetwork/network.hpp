@@ -2,7 +2,6 @@
 #define network_hpp
 
 #include "tensor.hpp"
-#include "sample.hpp"
 
 #include <vector>
 
@@ -48,10 +47,10 @@ public:
     inline void setErrorType(ErrorType e) { if(errorType != e) { errorType = e; updateError(); } }
 
     bool feed(scalar*);
-    bool feed(Sample&);
+    bool feed(scalar*, scalar*);
     inline bool feed() { return feed(nullptr); }
     
-    bool train(Sample&);
+    bool train(scalar*, scalar*);
     inline scalar getError() { if(error == nullptr) return -1.0; error->computeValue(); return *(error->getValueAddr()); }
     
     inline void addVariable(Variable* variable) { variables.push_back(variable); }; // TODO: preferably this is invisible for everyone except the Builder class

@@ -76,24 +76,18 @@ bool Network::feed(scalar* values) {
     return true;
 }
 
-bool Network::feed(Sample& sample) {
+bool Network::feed(scalar* inputValues, scalar* outputValues) {
     // Make sure training output is set
     if(trainOutput == nullptr) {
         Log::print("No output variable was provided");
         return false;
     }
     
-    // Make sure size of sample matches this network
-    if(trainOutput != nullptr && sample.getOutputSize() != trainOutput->getSize()) { // TODO: also check input size
-        Log::print("Sample has incorrect size");
-        return false;
-    }
-
     // Feed input to network
-    if(!feed(sample.input)) return false;
+    if(!feed(inputValues)) return false;
     
     // Set training output
-    memcpy(trainOutput->getValueAddr(), sample.output, sizeof(scalar) * trainOutput->getSize());
+    memcpy(trainOutput->getValueAddr(), outputValues, sizeof(scalar) * trainOutput->getSize());
     
     // Compute error
     error->computeValue();
@@ -101,9 +95,9 @@ bool Network::feed(Sample& sample) {
     return true;
 }
 
-bool Network::train(Sample& sample) {
+bool Network::train(scalar* inputValues, scalar* outputValues) {
     // Feed sample to network
-    if(!feed(sample)) return false;
+    if(!feed(inputValues, outputValues)) return false;
     
     // Reset the gradients of all variables
     for(auto it = variables.begin();it != variables.end(); ++it)

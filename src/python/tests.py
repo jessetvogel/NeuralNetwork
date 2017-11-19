@@ -1,1 +1,1 @@
-from test import test_sample
+from test import test_trainingset

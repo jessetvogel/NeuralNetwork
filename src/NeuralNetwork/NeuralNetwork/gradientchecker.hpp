@@ -7,7 +7,7 @@ class GradientChecker {
 
 public:
     
-    static void check(Network&, Sample&);
+    static void check(Network&, scalar*, scalar*);
     
 };
 

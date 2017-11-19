@@ -78,25 +78,57 @@ void Printer::print(Tensor<4>* tensor, scalar* value) {
     }
 }
 
-void Printer::print(Sample& sample) {
-    dim inputSize = sample.getInputSize();
-    dim outputSize = sample.getOutputSize();
-    scalar* input = sample.input;
-    scalar* output = sample.output;
-    OUTPUT_STREAM << "input size  = " << inputSize << std::endl;
-    OUTPUT_STREAM << "output size = " << outputSize << std::endl;
-    OUTPUT_STREAM << "input  = [ ";
-    for(dim i = 0;i < inputSize; ++i) {
-        OUTPUT_STREAM << (*(input++));
-        if(i < inputSize - 1) OUTPUT_STREAM << ", ";
-        
+void Printer::print(TrainingSet* set) {
+    size_t S = set->getAmountOfSamples();
+    OUTPUT_STREAM << "Amount of samples:      " << S << std::endl;
+    OUTPUT_STREAM << "Bytes per input value:  " << (unsigned int) set->bytesPerInputValue << std::endl;
+    OUTPUT_STREAM << "Bytes per output value: " << (unsigned int) set->bytesPerOutputValue << std::endl;
+    OUTPUT_STREAM << "Input lower bound:      " << set->inputLowerBound << std::endl;
+    OUTPUT_STREAM << "Input upper bound:      " << set->inputUpperBound << std::endl;
+    OUTPUT_STREAM << "Output lower bound:     " << set->outputLowerBound << std::endl;
+    OUTPUT_STREAM << "Output upper bound:     " << set->outputUpperBound << std::endl;
+    OUTPUT_STREAM << "Sample input size:      " << set->sampleInputSize << std::endl;
+    OUTPUT_STREAM << "Sample output size:     " << set->sampleOutputSize << std::endl << std::endl;
+    
+    if(S > 20) { S = 20; OUTPUT_STREAM << "(only printing 20 samples)" << std::endl; }
+    
+    for(int i = 0;i < S; ++i) {
+        set->setCurrentSample(i);
+        OUTPUT_STREAM << "input  #" << i << ": [ ";
+        scalar* value = set->getCurrentSampleInput();
+        for(dim i = 0;i < set->sampleInputSize; ++i) {
+            OUTPUT_STREAM << *(value++); if(i < set->sampleInputSize - 1) OUTPUT_STREAM << ", ";
+        }
+        OUTPUT_STREAM << " ]" << std::endl;
+    
+        OUTPUT_STREAM << "output #" << i << ": [ ";
+        value = set->getCurrentSampleOutput();
+        for(dim i = 0;i < set->sampleOutputSize; ++i) {
+            OUTPUT_STREAM << *(value++); if(i < set->sampleOutputSize - 1) OUTPUT_STREAM << ", ";
+        }
+        OUTPUT_STREAM << " ]" << std::endl << std::endl;
     }
-    OUTPUT_STREAM << " ]" << std::endl;
-    OUTPUT_STREAM << "output = [ ";
-    for(dim i = 0;i < outputSize; ++i) {
-        OUTPUT_STREAM << (*(output++));
-        if(i < outputSize - 1) OUTPUT_STREAM << ", ";
-        
-    }
-    OUTPUT_STREAM << " ]" << std::endl << std::endl;
 }
+
+//void Printer::print(Sample& sample) {
+//    dim inputSize = sample.getInputSize();
+//    dim outputSize = sample.getOutputSize();
+//    scalar* input = sample.input;
+//    scalar* output = sample.output;
+//    OUTPUT_STREAM << "input size  = " << inputSize << std::endl;
+//    OUTPUT_STREAM << "output size = " << outputSize << std::endl;
+//    OUTPUT_STREAM << "input  = [ ";
+//    for(dim i = 0;i < inputSize; ++i) {
+//        OUTPUT_STREAM << (*(input++));
+//        if(i < inputSize - 1) OUTPUT_STREAM << ", ";
+//        
+//    }
+//    OUTPUT_STREAM << " ]" << std::endl;
+//    OUTPUT_STREAM << "output = [ ";
+//    for(dim i = 0;i < outputSize; ++i) {
+//        OUTPUT_STREAM << (*(output++));
+//        if(i < outputSize - 1) OUTPUT_STREAM << ", ";
+//        
+//    }
+//    OUTPUT_STREAM << " ]" << std::endl << std::endl;
+//}
