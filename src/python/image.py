@@ -22,7 +22,7 @@ for subdirectory in ["training", "testing"]:
                 training_set.add_sample([x / 255.0 for x in list(img.getdata())], output)
                 img.close()
                 n += 1
-                if n == 200:
+                if n == 25:
                     break
         print "Read " + str(n) + " images"
 

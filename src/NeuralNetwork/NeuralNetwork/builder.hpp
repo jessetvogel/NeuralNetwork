@@ -39,6 +39,7 @@ public:
 
     // Convolutional types
     inline Volume* volume(dim width, dim height, dim depth)                                     { dim dimensions[3] = { width, height, depth }; return add(new Volume(nullptr, dimensions)); }
+    inline Volume* volume(dim* dimensions)                                                      { return volume(dimensions[0], dimensions[1], dimensions[2]); }
     inline FilterSet* filterset(dim width, dim height, dim depth, dim amount)                   { dim dimensions[4] = { width, height, depth, amount }; return add(new FilterSet(nullptr, dimensions)); }
 
     // Activation functions
@@ -55,7 +56,7 @@ public:
     template <int N> inline Tensor<N>* add(Tensor<N>* a, Tensor<N>* b)                          { return add(Add::create(a, b)); }
     template <int N> inline Tensor<N>* subtract(Tensor<N>* a, Tensor<N>* b)                     { return add(Subtract::create(a, b)); }
     template <int N> inline Scalar* inner(Tensor<N>* a, Tensor<N>* b)                           { return add(Dot::create(a, b)); }
-    inline Vector* dot(Matrix* a, Vector* b)                                                    { return add(DotMV::create(a, b)); }
+    inline Vector* dot(Matrix* a, Variable* b)                                                  { return add(DotMV::create(a, b)); }
     inline Matrix* dot(Matrix* a, Matrix* b)                                                    { return add(DotMM::create(a, b)); }
     
     // Convolutional functions

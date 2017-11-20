@@ -1,6 +1,7 @@
 #include "trainingset.hpp"
 #include <dirent.h>
 #include <fstream>
+#include <algorithm>
 
 TrainingSet::TrainingSet(uint8_t bpiv, uint8_t bpov,
             double ilb, double iub, double olb, double oub,
@@ -30,6 +31,28 @@ bool TrainingSet::train(Network& network) {
         if(!network.train(currentSampleInput, currentSampleOutput)) return false;
     }
     return true;
+}
+
+bool TrainingSet::evaluate(Network& network) {
+    // Keep track of the sum of errors
+    double sumErrors = 0.0;
+    
+    // Go through all samples
+    for(auto it = samples.begin();it != samples.end(); ++it) {
+        // Feed the network this sample
+        setCurrentSample(*it);
+        if(!network.feed(currentSampleInput, currentSampleOutput)) return false;
+        
+        // Add error
+        sumErrors += network.getError();
+    }
+    
+    Log::print("Average error: " + std::to_string(sumErrors / getAmountOfSamples()));
+    return true;
+}
+
+void TrainingSet::shuffle() {
+    std::random_shuffle(samples.begin(), samples.end());
 }
 
 bool TrainingSet::store(std::string path) {

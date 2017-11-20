@@ -126,8 +126,6 @@ bool Network::train(scalar* inputValues, scalar* outputValues) {
         }
     }
     
-    std::cout << "GN = " << gradientNorm << std::endl;
-    
     // In practice unnecessary, but just to be sure
     if(gradientNorm <= 0.0) {
         // We are exactly at a local minimum, no need to update the parameters

@@ -1,8 +1,8 @@
 #include "dotmv.hpp"
 
-Vector* DotMV::create(Matrix* a, Vector* b) {
+Vector* DotMV::create(Matrix* a, Variable* b) {
     // Make sure dimensions match
-    if(a->getDimension(MATRIX_COLUMNS) != b->getDimension(VECTOR_LENGTH)) {
+    if(a->getDimension(MATRIX_COLUMNS) != b->getSize()) {
         Log::print("Incompatible matrix and vector");
         return nullptr;
     }

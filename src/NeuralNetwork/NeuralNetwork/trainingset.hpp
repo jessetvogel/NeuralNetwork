@@ -36,10 +36,13 @@ public:
     void setCurrentSample(uint8_t*);
     inline void setCurrentSample(size_t i) { setCurrentSample(samples.at(i)); }
     
+    void shuffle();
+    
     bool store(std::string);
     static TrainingSet* load(std::string);
     
     bool train(Network&);
+    bool evaluate(Network&);
     
     // Getters
     inline scalar* getCurrentSampleInput() { return currentSampleInput; }

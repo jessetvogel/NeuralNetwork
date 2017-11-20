@@ -6,13 +6,13 @@
 class DotMV : Function {
     
     Matrix* const a;
-    Vector* const b;
+    Variable* const b;
     
-    DotMV(Matrix* a, Vector* b) : a(a), b(b) {};
+    DotMV(Matrix* a, Variable* b) : a(a), b(b) {};
     
 public:
     
-    static Vector* create(Matrix*, Vector*);
+    static Vector* create(Matrix*, Variable*);
     
     void setResult(Variable*);
     void evaluate();
